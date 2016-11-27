@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title>SVGeo</title>
+		<style type="text/css">
+			body>svg{box-shadow:0 0 10px -4px;}
+		</style>
+	</head>
+	<body>
+		<script type="text/javascript" src="svgeo.js"></script>
+		<script type="text/javascript">
+			(SVGeo=>{
+				"use strict";
+
+				const viewport= new SVGeo.Viewport(400,400);
+
+				const scene= new SVGeo.Scene_2D();
+
+				viewport.show(scene);
+
+				viewport.showIn( document.body );
+
+			})(window.SVGeo);
+		</script>
+	</body>
+</html>
