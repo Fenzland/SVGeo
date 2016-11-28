@@ -25,13 +25,17 @@
 			constructor( width, height )
 			{
 				_(this,{
-					dom:createSVGElement( 'svg', { viewBox:`0 0 ${width} ${height}`, width, height, } ),
+					dom: createSVGElement( 'svg', { viewBox:`0 0 ${width} ${height}`, width, height, } ),
+
+					scene: undefined,
 				});
 			}
 
-			show( scene )
+			show( scene, ...args )
 			{
+				_(this).scene= scene;
 
+				_(scene).showIn( this, args );
 			}
 
 			showIn( dom )
@@ -102,6 +106,8 @@
 			constructor( pointA, pointB )
 			{
 				super();
+
+				pointA.dependedBy(this),pointB.dependedBy(this);
 			}
 		}
 
@@ -153,6 +159,14 @@
 			}
 		}
 
+		class Vector
+		{
+			constructor()
+			{
+				//
+			}
+		}
+
 		class Scene
 		{
 			constructor()
@@ -161,99 +175,154 @@
 
 					elements: [],
 
-					symbols: new Map(),
-
-					add( element, name )
+					add( element )
 					{
-						this.element.push(element);
-						name && this.symbols.set( name, element );
+						this.elements.push(element);
+					},
+
+					showIn( viewport, args )
+					{
+						this.setViewport( viewport, ...args );
+
+						this.elements.forEach( element=>{
+							this.draw(element);
+						} );
+					},
+
+					draw( element )
+					{
+						//
 					},
 				})
 			}
 
-			line( pointA, pointB, name )
+			line( pointA, pointB )
 			{
-				_(this).add(...[
-					new Line( pointA, pointB ),
-					name,
-				]);
+				_(this).add( new Line( pointA, pointB ) );
 			}
 		}
 
 		class Scene_2D extends Scene
 		{
-			point( x, y, name)
+			constructor()
 			{
-				_(this).add(...[
-					new Point([ x, y, ]),
-					name,
-				]);
+				super();
+
+				_(this).setViewport= function( viewport, scale ){
+					this.viewport= viewport;
+
+					// 生成一個判斷點是否在區域內的閉包，用於判斷點是否需要繪製
+					// 生成方形邊界 element，用於截取直線，並以線段的方式顯示，（同理，截取圓變爲圓弧）
+				}
+			}
+
+			point( x, y )
+			{
+				_(this).add( new Point([ x, y, ]) );
 			}
 		}
 
 		class Scene_1_1D extends Scene
 		{
-			point( t, x, name )
+			constructor()
 			{
-				_(this).add(...[
-					new Point([ t, x, ]),
-					name,
-				]);
+				super();
+
+				_(this).setViewport= function( viewport, scale ){
+					this.viewport= viewport;
+				}
+			}
+
+			point( t, x )
+			{
+				_(this).add( new Point([ t, x, ]) );
 			}
 		}
 
 		class Scene_3D extends Scene
 		{
-			point( x, y, z, name )
+			constructor()
 			{
-				_(this).add(...[
-					new Point([ x, y, z, ]),
-					name,
-				]);
+				super();
+
+				_(this).setViewport= function( viewport, camera ){
+					this.viewport= viewport;
+
+					// 邊界形狀應爲方錐形
+				}
+			}
+
+			point( x, y, z )
+			{
+				_(this).add( new Point([ x, y, z, ]) );
 			}
 		}
 
 		class Scene_1_2D extends Scene
 		{
-			point( t, x, y, name )
+			constructor()
 			{
-				_(this).add(...[
-					new Point([ t, x, y, ]),
-					name,
-				]);
+				super();
+
+				_(this).setViewport= function( viewport ){
+					this.viewport= viewport;
+				}
+			}
+
+			point( t, x, y )
+			{
+				_(this).add( new Point([ t, x, y, ]) );
 			}
 		}
 
 		class Scene_4D extends Scene
 		{
-			point( w, x, y, z, name )
+			constructor()
 			{
-				_(this).add(...[
-					new Point([ w, x, y, z, ]),
-					name,
-				]);
+				super();
+
+				_(this).setViewport= function( viewport ){
+					this.viewport= viewport;
+				}
+			}
+
+			point( w, x, y, z )
+			{
+				_(this).add( new Point([ w, x, y, z, ]) );
 			}
 		}
 
 		class Scene_1_3D extends Scene
 		{
-			point( t, x, y, z, name )
+			constructor()
 			{
-				_(this).add(...[
-					new Point([ t, x, y, z, ]),
-					name,
-				]);
+				super();
+
+				_(this).setViewport= function( viewport ){
+					this.viewport= viewport;
+				}
+			}
+
+			point( t, x, y, z )
+			{
+				_(this).add( new Point([ t, x, y, z, ]) );
 			}
 		}
 
 		class Scene_2_2D extends Scene
 		{
-			point( s, t, x, y, name )
+			constructor()
 			{
-				_(this).add(...[
-					new Point([ s, t, x, y, ]),
-					name,
-				]);
+				super();
+
+				_(this).setViewport= function( viewport ){
+					this.viewport= viewport;
+				}
+			}
+
+			point( s, t, x, y )
+			{
+				_(this).add( new Point([ s, t, x, y, ]) );
 			}
 		}
 

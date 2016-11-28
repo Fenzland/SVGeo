@@ -16,7 +16,9 @@
 
 				const scene= new SVGeo.Scene_2D();
 
-				viewport.show(scene);
+				scene.line(scene.point(0,0),scene.point(1,1.8));
+
+				viewport.show( scene, 3 );
 
 				viewport.showIn( document.body );
 
