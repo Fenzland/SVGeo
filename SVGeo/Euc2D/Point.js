@@ -1,33 +1,27 @@
 import Line from './Line.js';
 import Circle from './Circle.js';
 import Model from '../../OvO/model/Model.js';
+import GPoint from '../genaral/Point.js';
 
-export default class Point
+export default class Point extends GPoint
 {
-	constructor( x, y, options={}, space, )
+	constructor( x, y, options={}, )
 	{
+		super();
+		
 		this.x= new Model( x, );
 		this.y= new Model( y, );
 		this.options= options;
-		this.space= space;
 	}
 	
 	lineTo( to, options={}, )
 	{
-		const line= new Line( this, to, options, this.space, );
-		
-		this.space.paths.push( line, );
-		
-		return line;
+		return new Line( this, to, options, );
 	}
 	
 	circle( radius, options={}, )
 	{
-		const circle= new Circle( this, radius, options, this.space, );
-		
-		this.space.paths.push( circle, );
-		
-		return circle;
+		return new Circle( this, radius, options, );
 	}
 	
 	move( x, y, )

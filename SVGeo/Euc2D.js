@@ -13,10 +13,6 @@ export default class Euc2D extends Space
 	
 	point( x, y, options, )
 	{
-		const point= new Point( x, y, options, this, );
-		
-		this.points.push( point, );
-		
-		return point;
+		return new Point( x, y, options, );
 	}
 }

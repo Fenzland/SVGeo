@@ -71,11 +71,55 @@ export default class Euc2DViewport
 		}, );
 	}
 	
-	transform( point, )
+	renderLine( line, )
 	{
-		return new Model( {
-			x: $( ( x, xSt, w, aw, )=> (x - xSt)*w/aw, point.x, this.area.x.start, this.width, this.areaWidth, ),
-			y: $( ( y, yEn, w, aw, )=> (yEn - y)*w/aw, point.y, this.area.y.end, this.width, this.areaWidth, ),
-		}, );
+		const yXStart= line.yFx( this.area.x.start, );
+		const yXEnd=   line.yFx( this.area.x.end, );
+		const xYStart= line.xFy( this.area.y.start, );
+		const xYEnd=   line.xFy( this.area.y.end, );
+		
+		const xL= $(
+			( xYStart, xYEnd, xStart, )=> Math.max( xStart, Math.min( xYStart, xYEnd, ), ),
+			xYStart, xYEnd, this.area.x.start,
+		);
+		const xR= $(
+			( xYStart, xYEnd,  xEnd, )=> Math.min( xEnd, Math.max( xYStart, xYEnd, ), ),
+			xYStart, xYEnd, this.area.x.end,
+		);
+		const yB= $(
+			( yXStart, yXEnd, yStart, )=> Math.max( yStart, Math.min( yXStart, yXEnd, ), ),
+			yXStart, yXEnd, this.area.y.start,
+		);
+		const yT= $(
+			( yXStart, yXEnd,  yEnd, )=> Math.min( yEnd, Math.max( yXStart, yXEnd, ), ),
+			yXStart, yXEnd, this.area.y.end,
+		);
+		const yL= $(
+			( xYStart, xYEnd, yB, yT, )=> xYStart>xYEnd? yT : yB,
+			xYStart, xYEnd, yB, yT,
+		);
+		const yR= $(
+			( xYStart, xYEnd, yB, yT, )=> xYStart>xYEnd? yB : yT,
+			xYStart, xYEnd, yB, yT,
+		);
+		
+		return {
+			type: 'line',
+			data: {
+				p0: this.transformPoint( { x:xL, y:yL, }, ),
+				p1: this.transformPoint( { x:xR, y:yR, }, ),
+			},
+		}
+	}
+	
+	renderCircle( circle, )
+	{
+		return {
+			type: 'circle',
+			data: {
+				o: this.transformPoint( circle.o, ),
+				r: $( ( r, w, aw )=> r*w/aw, circle.r, this.width, this.areaWidth, ),
+			},
+		};
 	}
 }

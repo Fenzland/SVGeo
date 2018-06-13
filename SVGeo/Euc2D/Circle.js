@@ -1,10 +1,27 @@
+import Model from '../../OvO/model/Model.js';
+import Path from '../genaral/Path.js';
 
-export default class Circle
+export default class Circle extends Path
 {
-	constructor( radius, options={}, space, )
+	constructor( center, radius, options={}, )
 	{
-		this.radius= radius;
+		super();
+		
+		this.center= center;
+		this.radius= new Model( radius, );
 		this.options= options;
-		this.space= space;
+	}
+	
+	crossLine()
+	{}
+	
+	get o()
+	{
+		return this.center;
+	}
+	
+	get r()
+	{
+		return this.radius;
 	}
 }
