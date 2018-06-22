@@ -8,7 +8,7 @@ export default class Complex extends Number
 			return r;
 		
 		if( typeof r === 'string' )
-			return Complex.fromString( 'r', );
+			return Complex.fromString( r, );
 		
 		super( r, );
 		
@@ -21,14 +21,14 @@ export default class Complex extends Number
 		return `${this.r}${this.i>=0?'+':''}${this.i}i`;
 	}
 	
-	fromString( s, )
+	static fromString( s, )
 	{
-		const m= s.match(/^(-?(?:\d*\.)?\d+)?\+?(?:(-?(?:\d*\.)?\d*)i)?$/);
+		const m= s.match(/^(-?(?:\d*\.)?\d+)??\+?(?:(-?(?:\d*\.)?\d*)i)?$/);
 		
 		if(!(m ))
-			throw "The format of complex number must be 'a±bi', 'a' or 'bi'.";
+			throw new Error( `The format of complex number must be 'a±bi', 'a' or 'bi'. '${s}' is invalid.` );
 		
-		return new Complex(
+		return new this(
 			+(m[1]||0),
 			+(m[2]===''?1: m[2]==='-'?-1: m[2]||0),
 		);
@@ -36,7 +36,7 @@ export default class Complex extends Number
 	
 	get sqmod()
 	{
-		return num.r*num.r - - num.i*num.i;
+		return this.r*this.r - - this.i*this.i;
 	}
 	
 	get mod()
@@ -54,9 +54,12 @@ export default class Complex extends Number
 		return new Complex( this.r/this.mod, this.i/this.mod, );
 	}
 	
-	get reciprocal()
+	get rec()
 	{
-		return new Complex( this.r/this.sqmod, this.i/this.sqmod, );
+		if( this.r===0 && this.i===0 )
+			return new Complex( Infinity, Infinity, );
+		else
+			return new Complex( this.r/this.sqmod, this.i/this.sqmod, );
 	}
 	
 	static sum( ...nums )
@@ -68,7 +71,21 @@ export default class Complex extends Number
 	{
 		[ num0, num1, ]= [ new Complex( num0, ), new Complex( num1, ), ];
 		
-		new this( num0.r*num1.r - num0.i*num1.i, num0.r*num1.i - - num0.i*num1.r, );
+		let aa= num0.r*num1.r;
+		let bb= num0.i*num1.i;
+		let ab= num0.r*num1.i;
+		let ba= num0.i*num1.r;
+		
+		if( isNaN( aa, ) && ( bb===Infinity || bb===-Infinity ) )
+			aa= 0;
+		if( isNaN( bb, ) && ( aa===Infinity || aa===-Infinity ) )
+			bb= 0;
+		if( isNaN( ab, ) && ( ba===Infinity || ba===-Infinity ) )
+			ab= 0;
+		if( isNaN( ba, ) && ( ab===Infinity || ab===-Infinity ) )
+			ba= 0;
+		
+		return new this( aa - bb, ab - - ba, );
 	}
 	
 	add( ...nums )
@@ -121,4 +138,29 @@ export default class Complex extends Number
 			'-0.5i',
 		);
 	}
+}
+
+export function sum( ...nums )
+{
+	return Complex.sum( ...nums, );
+}
+
+export function mul( ...nums )
+{
+	return nums.reduce( ( x, y, )=> Complex.mul( x, y, ), 1, );
+}
+
+export function sub( x, y, )
+{
+	return Complex.sum( x, Complex.mul( y, -1, ), );
+}
+
+export function div( x, y, )
+{
+	return Complex.mul( x, new Complex( y, ).rec, );
+}
+
+export function neg( x, )
+{
+	return Complex.mul( x, -1, );
 }

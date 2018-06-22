@@ -2,15 +2,16 @@ import Line from './Line.js';
 import Circle from './Circle.js';
 import Model from '../../OvO/model/Model.js';
 import GPoint from '../genaral/Point.js';
+import Complex, { sum, mul, sub, div, } from '../support/Complex.js';
 
 export default class Point extends GPoint
 {
-	constructor( x, y, options={}, )
+	constructor( t, x, options={}, )
 	{
 		super();
 		
-		this.x= new Model( x, );
-		this.y= new Model( y, );
+		this.t= new Model( t, );
+		this.x= new Model( new Complex( x, ), );
 		this.options= options;
 	}
 	
@@ -24,9 +25,9 @@ export default class Point extends GPoint
 		return new Circle( this, radius, options, );
 	}
 	
-	move( x, y, )
+	move( t, x, )
 	{
-		this.x.setValue( this.x - - x, );
-		this.y.setValue( this.y - - y, );
+		this.t.setValue( this.t - - t, );
+		this.x.setValue( sum( this.x.valueOf(), x, ), );
 	}
 }

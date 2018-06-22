@@ -1,6 +1,7 @@
 import Page from '../OvO/view/Page.js';
 import HTML, { header, footer, section, article, main, div, h1, h2, p, small, a, } from '../OvO/view/HTML.js';
-import demo from '../demos/index.js';
+import euc2D from '../demos/euc2D.js';
+import mink2D from '../demos/mink2D.js';
 
 export default new Page( {
 	
@@ -17,7 +18,10 @@ export default new Page( {
 			),
 			main(
 				article(
-					demo,
+					mink2D,
+				),
+				article(
+					euc2D,
 				),
 			),
 		];

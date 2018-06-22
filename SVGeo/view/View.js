@@ -97,6 +97,11 @@ export default class View
 					{ cx:data.o.x, cy:data.o.y, r:data.r, stroke:'red', fill:'none', },
 				);
 			
+			case 'path':
+				return SVG.path(
+					{ d:data.d, stroke:'red', fill:'none', },
+				);
+			
 			default:
 				return undefined;
 		}
