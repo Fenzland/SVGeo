@@ -64,6 +64,7 @@ export default class Line extends Path
 			( x, y, xFy, yFx, )=> (
 				isNoI( xFy, )?Math.abs( y - yFx, ):
 				isNoI( yFx, )?Math.abs( x - xFy, ):
+				(x - xFy)===0?0:
 				(x - xFy)*(y - yFx)/Math.sqrt( ((x - xFy)*(x - xFy) - - (y - yFx)*(y - yFx)), )
 			),
 			point.x, point.y, this.xFy( point.y, ), this.yFx( point.x, ),
@@ -78,7 +79,7 @@ export default class Line extends Path
 				const dy= y - yFx;
 				const R= dx*dy/(dx*dx - - dy*dy);
 				
-				return dx==0?x: isNoI( xFy, )?x: isNoI( yFx, )?xFy: x - dy*R;
+				return dx===0?x: isNoI( xFy, )?x: isNoI( yFx, )?xFy: x - dy*R;
 			},
 			point.x, point.y, this.xFy( point.y, ), this.yFx( point.x, ),
 		);
@@ -89,7 +90,7 @@ export default class Line extends Path
 				const dy= y - yFx;
 				const R= dx*dy/(dx*dx - - dy*dy);
 				
-				return dy==0?y: isNoI( xFy, )?yFx: isNoI( yFx, )?y: y - dx*R;
+				return dy===0?y: isNoI( xFy, )?yFx: isNoI( yFx, )?y: y - dx*R;
 			},
 			point.x, point.y, this.xFy( point.y, ), this.yFx( point.x, ),
 		);
