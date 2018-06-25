@@ -18,7 +18,12 @@ export default class Complex extends Number
 	
 	toString()
 	{
-		return `${this.r}${this.i>=0?'+':''}${this.i}i`;
+		return `${(!this.r && this.i)?'':this.r}${this.r && this.i>0?'+':''}${this.i?`${this.i}i`:''}`;
+	}
+	
+	valueOf()
+	{
+		return this.toString();
 	}
 	
 	static fromString( s, )
