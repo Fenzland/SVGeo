@@ -41,61 +41,76 @@ export default class Line extends Path
 		const foot= this.foot( circle.center, );
 		
 		return $(
-			( d, r, foot, footX, footY, y0, x0, y1, x1, )=> {
-				if( d > r )
+			( d, r, foot, footT, footX, x0, t0, x1, t1, )=> {
+				if( (r.r>0 && d.r>0 && d.r<r.r) || (r.i>0 && d.i>0 && d.i<r.i) )
 					return [];
 				else
-				if( d == r )
+				if( d.r == r.r && d.i == r.i )
 					return [ foot, ];
+				else
+				if( d.r===Infinity || d.r===-Infinity || d.i===Infinity || d.i===-Infinity )
+					return [];
 				
-				const R= Math.sqrt( (r*r - d*d)/((x1 - x0)*(x1 - x0) - - (y1 - y0)*(y1 - y0)), );
+				const R= Math.sqrt( div( sub( mul( r, r, ), mul( d, d, ), ), sum( (t1 - t0)*(t1 - t0), mul( sub( x1, x0, ), sub( x1, x0, ), ), ), ).r, );
 				
 				return [
-					new Point( footX - R*(x1 - x0), footY - R*(y1 - y0), options, ),
-					new Point( footX - R*(x0 - x1), footY - R*(y0 - y1), options, ),
+					new Point( footT - R*(t1 - t0), sub( footX, mul( R, sub( x1, x0, ), ), ), options, ),
+					new Point( footT - R*(t0 - t1), sub( footX, mul( R, sub( x0, x1, ), ), ), options, ),
 				];
 			},
-			d, circle.r, foot, foot.valueOf().x, foot.valueOf().y, this.p0.y, this.p0.x, this.p1.y, this.p1.x,
+			d, circle.r, foot, foot.valueOf().t, foot.valueOf().x, this.p0.x, this.p0.t, this.p1.x, this.p1.t,
 		);
 	}
 	
 	distanceTo( point, )
 	{
 		return $(
-			( x, y, xFy, yFx, )=> (
-				isNoI( xFy, )?Math.abs( y - yFx, ):
-				isNoI( yFx, )?Math.abs( x - xFy, ):
-				(x - xFy)*(y - yFx)/Math.sqrt( ((x - xFy)*(x - xFy) - - (y - yFx)*(y - yFx)), )
-			),
-			point.x, point.y, this.xFy( point.y, ), this.yFx( point.x, ),
+			( t, x, tFx, xFt, )=> {
+				if( isNoI( tFx, ) )
+					return mul( 'i', Math.abs( x.i - xFt.i, ), );
+				if( isNoI( xFt.i, ) )
+					return Math.abs( t - tFx, );
+				if( (t - tFx)===0 )
+					return 0;
+				
+				const dt= (t - tFx);
+				const dx= sub( x, xFt, );
+				const dr2= dt*dt - - mul( dx, dx, ).r;
+				
+				if( dr2>=0 )
+					return new Complex( 0, Math.abs( mul( dt, dx, 1/Math.sqrt( dr2, ), ).i, ), );
+				else
+					return new Complex( Math.abs( mul( dt, dx, 1/Math.sqrt( -dr2, ), 'i', ).r, ), );
+			},
+			point.t, point.x, this.tFx( point.x, ), this.xFt( point.t, ),
 		);
 	}
 	
 	foot( point, options={}, )
 	{
+		const t= $(
+			( t, x, tFx, xFt, )=> {
+				const dt= t - tFx;
+				const dx= sub( x, xFt, );
+				const R= mul( dt, dx, 1/(dt*dt - - mul( dx, dx, ).r), );
+				
+				return dt===0?t: isNoI( tFx, )?t: isNoI( xFt.i, )?tFx: t - mul( dx, R, ).r;
+			},
+			point.t, point.x, this.tFx( point.x, ), this.xFt( point.t, ),
+		);
+		
 		const x= $(
-			( x, y, xFy, yFx, )=> {
-				const dx= x - xFy;
-				const dy= y - yFx;
-				const R= dx*dy/(dx*dx - - dy*dy);
+			( t, x, tFx, xFt, )=> {
+				const dt= t - tFx;
+				const dx= sub( x, xFt, );
+				const R= mul( dt, dx, 1/(dt*dt - - mul( dx, dx, ).r), );
 				
-				return dx==0?x: isNoI( xFy, )?x: isNoI( yFx, )?xFy: x - dy*R;
+				return dx.i===0?x: isNoI( tFx, )?xFt: isNoI( xFt.i, )?x: sub( x, mul( dt, R, ), );
 			},
-			point.x, point.y, this.xFy( point.y, ), this.yFx( point.x, ),
+			point.t, point.x, this.tFx( point.x, ), this.xFt( point.t, ),
 		);
 		
-		const y= $(
-			( x, y, xFy, yFx, )=> {
-				const dx= x - xFy;
-				const dy= y - yFx;
-				const R= dx*dy/(dx*dx - - dy*dy);
-				
-				return dy==0?y: isNoI( xFy, )?yFx: isNoI( yFx, )?y: y - dx*R;
-			},
-			point.x, point.y, this.xFy( point.y, ), this.yFx( point.x, ),
-		);
-		
-		return new Point( x, y, options, );
+		return new Point( t, x, options, );
 	}
 }
 
