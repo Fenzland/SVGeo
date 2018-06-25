@@ -1,7 +1,13 @@
 SVGeo.js (developing)
 ================================
 
-A JavaScript(ES6) library for geometry, bace on SVG.
+A ECMAScript library for geometry, bace on SVG and [OvO](https://github.com/Fenzland/ovo.js).
+
+Supported background spaces:
+
+* Euclidean space (2D and 3D)
+* Minkowski space (2D and 3D)
+* Cartesian space (2D and 3D)
 
 # License
 
