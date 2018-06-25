@@ -11,7 +11,7 @@ export default class Point extends GPoint
 		super();
 		
 		this.t= new Model( t, );
-		this.x= new Model( new Complex( x, ), );
+		this.x= new Model( x, ).$( x=> new Complex( x, ), );
 		this.options= options;
 	}
 	
