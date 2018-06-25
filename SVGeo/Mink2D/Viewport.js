@@ -117,7 +117,7 @@ export default class Mink2DViewport
 	renderCircle( circle, )
 	{
 		const boundaryPoint= ( t, x, sT, sX, )=> {
-			return this.transformPoint( $(
+			return $(
 				( r, oT, oX, t, x, )=> {
 					
 					if( r.r>0 )
@@ -134,7 +134,7 @@ export default class Mink2DViewport
 						return { t:t, x:mul( 'i', sX*Math.sqrt( (t - oT)*(t - oT) - mul( r, r, ).r, ), ), }
 				},
 				circle.r, circle.o.t, circle.o.x, t, x,
-			), );
+			);
 		}
 		
 		const TopLeft= boundaryPoint( this.area.t.end, this.area.x.start, 1, -1, );
@@ -143,37 +143,92 @@ export default class Mink2DViewport
 		const BottomRight= boundaryPoint( this.area.t.start, this.area.x.end, -1, 1, );
 		
 		const apexes= [
-			this.transformPoint( { t:$( ( oT, r, )=> oT - - r.r, circle.o.t, circle.r, ), x:$( ( oX, r, )=> mul( 'i', oX.i - - r.i, ), circle.o.x, circle.r, ), }, ),
-			this.transformPoint( { t:$( ( oT, r, )=> oT - r.r, circle.o.t, circle.r, ), x:$( ( oX, r, )=> mul( 'i', oX.i - r.i, ), circle.o.x, circle.r, ), }, ),
+			{ t:$( ( oT, r, )=> oT - - r.r, circle.o.t, circle.r, ), x:$( ( oX, r, )=> mul( 'i', oX.i - - r.i, ), circle.o.x, circle.r, ), },
+			{ t:$( ( oT, r, )=> oT - r.r, circle.o.t, circle.r, ), x:$( ( oX, r, )=> mul( 'i', oX.i - r.i, ), circle.o.x, circle.r, ), },
 		];
+		
+		function handle( corner, )
+		{
+			const t1= $( ( r, t0, x0, a0_t, a1_t, )=> ((r.r>0? t0>0 : x0.i>0)? a0_t : a1_t), circle.r, corner.t, corner.x, apexes[0].t, apexes[1].t, );
+			const x1= $( ( r, t0, x0, a0_x, a1_x, )=> ((r.r>0? t0>0 : x0.i>0)? a0_x : a1_x), circle.r, corner.t, corner.x, apexes[0].x, apexes[1].x, );
+			
+			const h= $(
+				( r, t0, x0, t1, x1, )=> {
+					const cos= Math.abs(t0*t1 - x0.i*x1.i)/Math.sqrt( (t0*t0 - x0.i*x0.i)*(t1*t1 - x1.i*x1.i), );
+					const h_i= (4/3)*(Math.sqrt( -2*cos*(1 - cos), ) - Math.sqrt(-(1 - cos*cos)))/(1 - cos);
+					const s= (t1 - t0)*(x1.i - x0.i)>0? 1 : -1;
+					
+					return (
+						isNaN( h_i )
+						? 0
+						: mul( 'i', h_i, s, )
+					);
+				},
+				circle.r, corner.t, corner.x, t1, x1,
+			);
+			
+			
+			return [
+				{ t:$( ( t, x, h, )=> t - - mul( x, h, -1 ).r, corner.t, corner.x, h, ), x:$( ( t, x, h, )=> sum( x, mul( t, h, ), ), corner.t, corner.x, h, ), },
+				{ t:$( ( t, x, h, )=> t - - mul( x, h, ).r, t1, x1, h, ), x:$( ( t, x, h, )=> sum( x, mul( t, h, -1, ), ), t1, x1, h, ), },
+			];
+		}
+		
+		const Handle_TL= handle( TopLeft, );
+		const Handle_TR= handle( TopRight, );
+		const Handle_BL= handle( BottomLeft, );
+		const Handle_BR= handle( BottomRight, );
+		
+		const t_TopLeft= this.transformPoint( TopLeft, );
+		const t_TopRight= this.transformPoint( TopRight, );
+		const t_BottomLeft= this.transformPoint( BottomLeft, );
+		const t_BottomRight= this.transformPoint( BottomRight, );
+		const t_apexes= [
+			this.transformPoint( apexes[0], ),
+			this.transformPoint( apexes[1], ),
+		];
+		
+		const t_Handle_TL= Handle_TL.map( x=> this.transformPoint( x, ), );
+		const t_Handle_TR= Handle_TR.map( x=> this.transformPoint( x, ), );
+		const t_Handle_BL= Handle_BL.map( x=> this.transformPoint( x, ), );
+		const t_Handle_BR= Handle_BR.map( x=> this.transformPoint( x, ), );
 		
 		return {
 			type: 'path',
 			data: {
-				o: this.transformPoint( circle.o, ),
-				a: this.transformPoint( new Point( circle.o.t - - circle.r.r, circle.o.x - - circle.r.i, ), ),
-				b: Math.max( circle.r.r, circle.r.i, ),
 				d: $(
-					( r, a0_x, a0_y, a1_x, a1_y, TL_x, TL_y, TR_x, TR_y, BL_x, BL_y, BR_x, BR_y, )=> (
+					(
+						r, a0_x, a0_y, a1_x, a1_y,
+						TL_x, TL_y, TR_x, TR_y, BL_x, BL_y, BR_x, BR_y,
+						H_TL_0_x, H_TR_0_x, H_BL_0_x, H_BR_0_x,
+						H_TL_0_y, H_TR_0_y, H_BL_0_y, H_BR_0_y,
+						H_TL_1_x, H_TR_1_x, H_BL_1_x, H_BR_1_x,
+						H_TL_1_y, H_TR_1_y, H_BL_1_y, H_BR_1_y,
+					)=> (
 						r.r>0
 						? [
 							`M ${TL_x} ${TL_y}`,
-							`Q ${TL_x - (TL_y - a0_y)} ${a0_y} ${a0_x} ${a0_y}`,
-							`Q ${TR_x - (a0_y - TR_y)} ${a0_y} ${TR_x} ${TR_y}`,
+							`C ${H_TL_0_x} ${H_TL_0_y}  ${H_TL_1_x} ${H_TL_1_y}  ${a0_x} ${a0_y}`,
+							`C ${H_TR_1_x} ${H_TR_1_y}  ${H_TR_0_x} ${H_TR_0_y}  ${TR_x} ${TR_y}`,
 							`M ${BL_x} ${BL_y}`,
-							`Q ${BL_x - (a1_y - BL_y)} ${a1_y} ${a1_x} ${a1_y}`,
-							`Q ${BR_x - (BR_y - a1_y)} ${a1_y} ${BR_x} ${BR_y}`,
+							`C ${H_BL_0_x} ${H_BL_0_y}  ${H_BL_1_x} ${H_BL_1_y}  ${a1_x} ${a1_y}`,
+							`C ${H_BR_1_x} ${H_BR_1_y}  ${H_BR_0_x} ${H_BR_0_y}  ${BR_x} ${BR_y}`,
 						].join( ' ', )
 						: [
 							`M ${TL_x} ${TL_y}`,
-							`Q ${a1_x} ${TL_y - (TL_x - a1_x)} ${a1_x} ${a1_y}`,
-							`Q ${a1_x} ${BL_y - (a1_x - BL_x)} ${BL_x} ${BL_y}`,
+							`C ${H_TL_0_x} ${H_TL_0_y}  ${H_TL_1_x} ${H_TL_1_y}  ${a1_x} ${a1_y}`,
+							`C ${H_BL_1_x} ${H_BL_1_y}  ${H_BL_0_x} ${H_BL_0_y}  ${BL_x} ${BL_y}`,
 							`M ${TR_x} ${TR_y}`,
-							`Q ${a0_x} ${TR_y - (a0_x - TR_x)} ${a0_x} ${a0_y}`,
-							`Q ${a0_x} ${BR_y - (BR_x - a0_x)} ${BR_x} ${BR_y}`,
+							`C ${H_TR_0_x} ${H_TR_0_y}  ${H_TR_1_x} ${H_TR_1_y}  ${a0_x} ${a0_y}`,
+							`C ${H_BR_1_x} ${H_BR_1_y}  ${H_BR_0_x} ${H_BR_0_y}  ${BR_x} ${BR_y}`,
 						].join( ' ', )
 					),
-					circle.r, apexes[0].x, apexes[0].y, apexes[1].x, apexes[1].y, TopLeft.x, TopLeft.y, TopRight.x, TopRight.y, BottomLeft.x, BottomLeft.y, BottomRight.x, BottomRight.y,
+					circle.r, t_apexes[0].x, t_apexes[0].y, t_apexes[1].x, t_apexes[1].y,
+					t_TopLeft.x, t_TopLeft.y, t_TopRight.x, t_TopRight.y, t_BottomLeft.x, t_BottomLeft.y, t_BottomRight.x, t_BottomRight.y,
+					t_Handle_TL[0].x, t_Handle_TR[0].x, t_Handle_BL[0].x, t_Handle_BR[0].x,
+					t_Handle_TL[0].y, t_Handle_TR[0].y, t_Handle_BL[0].y, t_Handle_BR[0].y,
+					t_Handle_TL[1].x, t_Handle_TR[1].x, t_Handle_BL[1].x, t_Handle_BR[1].x,
+					t_Handle_TL[1].y, t_Handle_TR[1].y, t_Handle_BL[1].y, t_Handle_BR[1].y,
 				),
 			},
 		};
