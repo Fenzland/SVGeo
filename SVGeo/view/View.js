@@ -1,6 +1,6 @@
-import Model from '../../OvO/model/Model.js';
+import Model, { $, } from '../../OvO/model/Model.js';
 import SVG from '../../OvO/view/SVG.js';
-import { ForEach, } from '../../OvO/view/Ctrl.js';
+import { IfNot, ForEach, } from '../../OvO/view/Ctrl.js';
 import movement from './movement.js';
 import Path from '../genaral/Path.js';
 import Point from '../genaral/Point.js';
@@ -69,9 +69,14 @@ export default class View
 		
 		const { x, y, }= this.viewport.transformPoint( point, );
 		
-		return SVG.circle(
-			{ cx:x, cy:y, r:3.5, },
-			(point.options.free? movement( point, this.viewport, ) : undefined),
+		return IfNot( $(
+			( x, y, w, h, )=> isNaN( x, ) || isNaN( y, ) || x<0 || y<0 || x>w || y>h,
+			x, y, this.viewport.width, this.viewport.height,
+		), ).then(
+			SVG.circle(
+				{ cx:x, cy:y, r:3.5, },
+				(point.options.free? movement( point, this.viewport, ) : undefined),
+			),
 		);
 	}
 	
