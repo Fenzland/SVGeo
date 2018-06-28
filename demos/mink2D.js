@@ -2,32 +2,32 @@ import Mink2D from '../SVGeo/Mink2D.js';
 
 const canvas= new Mink2D();
 
-canvas.view( [ -16, 16, ], [ '-16i', '16i', ], 512, );
+canvas.view( [ -16, 16, ], [ '-16i', '16i', ], 768, 1.25, );
 
 const p_O= canvas.point( 0, 0, { label:'O', }, );
-const p_A= canvas.point( -4, 0, { label:'A', free:true, }, );
-const p_B= canvas.point( 3, '2i', { label:'B', free:true, }, );
+const p_A= canvas.point( -4., '-5i', { label:'A', free:true, color:'hsla(180,100%,40%,1)', }, );
+const p_B= canvas.point( 3, '2i', { label:'B', free:true, color:'hsla(210,100%,40%,1)', }, );
 
-const l_1= p_A.lineTo( p_B, { label:'l1', hidden:true, }, );
-const O_0= p_O.circle( 0, );
-const O_1= p_O.circle( 2, );
-const O_2= p_O.circle( 4, );
-const O_3= p_O.circle( 6, );
-const O_4= p_O.circle( 8, );
-const O_5= p_O.circle( 10, );
-const O_6= p_O.circle( 12, );
-const O_7= p_O.circle( 14, );
-const O_1i= p_O.circle( '2i', );
-const O_2i= p_O.circle( '4i', );
-const O_3i= p_O.circle( '6i', );
-const O_4i= p_O.circle( '8i', );
-const O_5i= p_O.circle( '10i', );
-const O_6i= p_O.circle( '12i', );
-const O_7i= p_O.circle( '14i', );
+const l_1= p_A.lineTo( p_B, { label:'l1', }, );
+const O_0= p_O.circle( 0, { color:'hsla(0,100%,50%,1)', }, );
+const O_1= p_O.circle( 2, { color:'hsla(10,100%,50%,1)', }, );
+const O_2= p_O.circle( 4, { color:'hsla(20,100%,50%,1)', }, );
+const O_3= p_O.circle( 6, { color:'hsla(30,100%,50%,1)', }, );
+const O_4= p_O.circle( 8, { color:'hsla(40,100%,50%,1)', }, );
+const O_5= p_O.circle( 10, { color:'hsla(50,100%,50%,1)', }, );
+const O_6= p_O.circle( 12, { color:'hsla(60,100%,50%,1)', }, );
+const O_7= p_O.circle( 14, { color:'hsla(70,100%,50%,1)', }, );
+const O_1i= p_O.circle( '2i', { color:'hsla(-10,100%,50%,1)', }, );
+const O_2i= p_O.circle( '4i', { color:'hsla(-20,100%,50%,1)', }, );
+const O_3i= p_O.circle( '6i', { color:'hsla(-30,100%,50%,1)', }, );
+const O_4i= p_O.circle( '8i', { color:'hsla(-40,100%,50%,1)', }, );
+const O_5i= p_O.circle( '10i', { color:'hsla(-50,100%,50%,1)', }, );
+const O_6i= p_O.circle( '12i', { color:'hsla(-60,100%,50%,1)', }, );
+const O_7i= p_O.circle( '14i', { color:'hsla(-70,100%,50%,1)', }, );
 
-const foot= l_1.foot( p_O, );
+const foot= l_1.foot( p_O, { color:'yellow', }, );
 
-const c_1= l_1.cross( O_5, );
+const c_1= l_1.cross( O_4, );
 
 canvas.show(
 	l_1,
