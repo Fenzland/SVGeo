@@ -6,15 +6,17 @@ export default class Euc2DViewport
 	{
 		this.area= new Model( { x:{ start:-8, end:8, }, y:{ start:-8, end:8, }, }, );
 		this.resolution= new Model( 256, );
+		this.stroke= new Model( 1, );
 	}
 	
-	set( [ xStart, xEnd, ], [ yStart, yEnd, ], resolution, )
+	set( [ xStart, xEnd, ], [ yStart, yEnd, ], resolution, stroke=1, )
 	{
 		this.area.x.start=  xStart;
 		this.area.x.end=    xEnd;
 		this.area.y.start=  yStart;
 		this.area.y.end=    yEnd;
 		this.resolution.setValue( resolution, );
+		this.stroke.setValue( stroke, );
 	}
 	
 	get areaWidth()

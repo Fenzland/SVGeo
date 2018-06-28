@@ -8,15 +8,17 @@ export default class Mink2DViewport
 	{
 		this.area= new Model( { t:{ start:-8, end:8, }, x:{ start:new Complex( '-8i', ), end:new Complex( '8i', ), }, }, );
 		this.resolution= new Model( 256, );
+		this.stroke= new Model( 1, );
 	}
 	
-	set( [ tStart, tEnd, ], [ xStart, xEnd, ], resolution, )
+	set( [ tStart, tEnd, ], [ xStart, xEnd, ], resolution, stroke=1, )
 	{
 		this.area.t.start=  tStart;
 		this.area.t.end=    tEnd;
 		this.area.x.start=  new Complex( xStart, );
 		this.area.x.end=    new Complex( xEnd, );
 		this.resolution.setValue( resolution, );
+		this.stroke.setValue( stroke, );
 	}
 	
 	get areaWidth()

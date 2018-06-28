@@ -67,6 +67,7 @@ export default class View
 		if( Array.isArray( point, ) )
 			return point.map( x=> this.renderPoint( x, ), );
 		
+		const stroke= this.viewport.stroke;
 		const { x, y, }= this.viewport.transformPoint( point, );
 		
 		return IfNot( $(
@@ -74,7 +75,12 @@ export default class View
 			x, y, this.viewport.width, this.viewport.height,
 		), ).then( m=> [
 			SVG.circle(
-				{ cx:$( ( m, x, )=> m?-8:x, m, x, ), cy:$( ( m, y, )=> m?-8:y, m, y, ), r:point.options.free?4.5:2.5, fill:point.options.color||'hsla(0,0%,0%,1)', },
+				{
+					cx:$( ( m, x, )=> m?-8:x, m, x, ),
+					cy:$( ( m, y, )=> m?-8:y, m, y, ),
+					r:point.options.free?stroke.$( x=> x*4.5, ):stroke.$( x=> x*2.5, ),
+					fill:point.options.color||'hsla(0,0%,0%,1)',
+				},
 				(point.options.free? movement( point, this.viewport, ) : undefined),
 			),
 		], );
@@ -83,6 +89,15 @@ export default class View
 	renderPath( path, )
 	{
 		const { type, data, }= this.viewport[`render${path.constructor.name}`]( path, );
+		
+		const stroke= this.viewport.stroke;
+		
+		const styles= {
+			stroke: path.options.color||'hsla(0,100%,67%,1)',
+			fill:'none',
+			'stroke-dasharray': { dotted:stroke.$( x=> x*2, ), dashed:stroke.$( x=> x*4, ), }[path.options.dash]||'0',
+			'stroke-width': stroke,
+		};
 		
 		switch( type )
 		{
@@ -93,18 +108,18 @@ export default class View
 						y1: data.p0.y,
 						x2: data.p1.x,
 						y2: data.p1.y,
-						stroke: path.options.color||'hsla(0,100%,67%,1)',
+						...styles,
 					},
 				);
 			
 			case 'circle':
 				return SVG.circle(
-					{ cx:data.o.x, cy:data.o.y, r:data.r, stroke:path.options.color||'hsla(0,100%,67%,1)', fill:'none', },
+					{ cx:data.o.x, cy:data.o.y, r:data.r, ...styles, },
 				);
 			
 			case 'path':
 				return SVG.path(
-					{ d:data.d, stroke:path.options.color||'hsla(0,100%,67%,1)', fill:'none', },
+					{ d:data.d, ...styles, },
 				);
 			
 			default:
