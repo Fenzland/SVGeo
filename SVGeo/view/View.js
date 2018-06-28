@@ -72,12 +72,12 @@ export default class View
 		return IfNot( $(
 			( x, y, w, h, )=> isNaN( x, ) || isNaN( y, ) || x<0 || y<0 || x>w || y>h,
 			x, y, this.viewport.width, this.viewport.height,
-		), ).then(
+		), ).then( m=> [
 			SVG.circle(
-				{ cx:x, cy:y, r:3.5, },
+				{ cx:$( ( m, x, )=> m?-8:x, m, x, ), cy:$( ( m, y, )=> m?-8:y, m, y, ), r:point.options.free?4.5:2.5, fill:point.options.color||'hsla(0,0%,0%,1)', },
 				(point.options.free? movement( point, this.viewport, ) : undefined),
 			),
-		);
+		], );
 	}
 	
 	renderPath( path, )
@@ -93,18 +93,18 @@ export default class View
 						y1: data.p0.y,
 						x2: data.p1.x,
 						y2: data.p1.y,
-						stroke: 'red',
+						stroke: path.options.color||'hsla(0,100%,67%,1)',
 					},
 				);
 			
 			case 'circle':
 				return SVG.circle(
-					{ cx:data.o.x, cy:data.o.y, r:data.r, stroke:'red', fill:'none', },
+					{ cx:data.o.x, cy:data.o.y, r:data.r, stroke:path.options.color||'hsla(0,100%,67%,1)', fill:'none', },
 				);
 			
 			case 'path':
 				return SVG.path(
-					{ d:data.d, stroke:'red', fill:'none', },
+					{ d:data.d, stroke:path.options.color||'hsla(0,100%,67%,1)', fill:'none', },
 				);
 			
 			default:
