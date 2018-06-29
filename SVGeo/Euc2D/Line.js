@@ -102,6 +102,38 @@ export default class Line extends Path
 		
 		return new Point( x, y, options, );
 	}
+	
+	perpendicular( point, options={}, )
+	{
+		const other= new Point(
+			$(
+				( x, y, x0, y0, x1, y1, )=> x - - (y1 - y0),
+				point.x, point.y, this.p0.x, this.p0.y, this.p1.x, this.p1.y,
+			),
+			$(
+				( x, y, x0, y0, x1, y1, )=> y - (x1 - x0),
+				point.x, point.y, this.p0.x, this.p0.y, this.p1.x, this.p1.y,
+			),
+		);
+		
+		return new Line( point, other, options, );
+	}
+	
+	parallelism( point, options={}, )
+	{
+		const other= new Point(
+			$(
+				( x, y, x0, y0, x1, y1, )=> x - - (x1 - x0),
+				point.x, point.y, this.p0.x, this.p0.y, this.p1.x, this.p1.y,
+			),
+			$(
+				( x, y, x0, y0, x1, y1, )=> y - - (y1 - y0),
+				point.x, point.y, this.p0.x, this.p0.y, this.p1.x, this.p1.y,
+			),
+		);
+		
+		return new Line( point, other, options, );
+	}
 }
 
 function isNoI( number, )
