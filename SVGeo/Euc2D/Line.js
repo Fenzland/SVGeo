@@ -29,9 +29,35 @@ export default class Line extends Path
 		);
 	}
 	
-	crossLine( line, )
+	crossLine( line, options={}, )
 	{
-		
+		return new Point(
+			$(
+				( x0_0, y0_0, x0_1, y0_1, x1_0, y1_0, x1_1, y1_1, )=> (
+					x0_1==x0_0? x0_0*(y0_1 - y0_0)/(y0_1 - y0_0) :
+					x1_1==x1_0? x1_0*(y1_1 - y1_0)/(y1_1 - y1_0) :
+					(
+						(x0_0*(y0_1 - y0_0)/(x0_1 - x0_0) - x1_0*(y1_1 - y1_0)/(x1_1 - x1_0) - y0_0 - - y1_0)
+					/
+						((y0_1 - y0_0)/(x0_1 - x0_0) - (y1_1 - y1_0)/(x1_1 - x1_0))
+					)
+				),
+				this.p0.x, this.p0.y, this.p1.x, this.p1.y, line.p0.x, line.p0.y, line.p1.x, line.p1.y, 
+			),
+			$(
+				( x0_0, y0_0, x0_1, y0_1, x1_0, y1_0, x1_1, y1_1, )=> (
+					y0_1==y0_0? y0_0*(x0_1 - x0_0)/(x0_1 - x0_0) :
+					y1_1==y1_0? y1_0*(x1_1 - x1_0)/(x1_1 - x1_0) :
+					(
+						(y0_0*(x0_1 - x0_0)/(y0_1 - y0_0) - y1_0*(x1_1 - x1_0)/(y1_1 - y1_0) - x0_0 - - x1_0)
+					/
+						((x0_1 - x0_0)/(y0_1 - y0_0) - (x1_1 - x1_0)/(y1_1 - y1_0))
+					)
+				),
+				this.p0.x, this.p0.y, this.p1.x, this.p1.y, line.p0.x, line.p0.y, line.p1.x, line.p1.y, 
+			),
+			options,
+		);
 	}
 	
 	crossCircle( circle, options={}, )
