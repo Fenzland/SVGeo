@@ -7,6 +7,13 @@ export default class Euc2DViewport
 		this.area= new Model( { x:{ start:-8, end:8, }, y:{ start:-8, end:8, }, }, );
 		this.resolution= new Model( 256, );
 		this.stroke= new Model( 1, );
+		
+		this.areaWidth= $( ( e, s, )=> e - s, this.area.x.end, this.area.x.start, );
+		this.areaHeight= $( ( e, s, )=> e - s, this.area.y.end, this.area.y.start, );
+		this.HWRatio= $( ( ah, aw, )=> ah/aw, this.areaHeight, this.areaWidth, );
+		this.width= this.resolution;
+		this.height= $( ( r, hwr, )=> r*hwr, this.resolution, this.HWRatio, );
+		this.viewBox= $( ( w, h, )=> `0,0,${w},${h}`, this.width, this.height, );
 	}
 	
 	set( [ xStart, xEnd, ], [ yStart, yEnd, ], resolution, stroke=1, )
@@ -17,36 +24,6 @@ export default class Euc2DViewport
 		this.area.y.end=    yEnd;
 		this.resolution.setValue( resolution, );
 		this.stroke.setValue( stroke, );
-	}
-	
-	get areaWidth()
-	{
-		return $( ( e, s, )=> e - s, this.area.x.end, this.area.x.start, );
-	}
-	
-	get areaHeight()
-	{
-		return $( ( e, s, )=> e - s, this.area.y.end, this.area.y.start, );
-	}
-	
-	get width()
-	{
-		return this.resolution;
-	}
-	
-	get height()
-	{
-		return $( ( r, hwr, )=> r*hwr, this.resolution, this.HWRatio, );
-	}
-	
-	get HWRatio()
-	{
-		return $( ( ah, aw, )=> ah/aw, this.areaHeight, this.areaWidth, );
-	}
-	
-	get viewBox()
-	{
-		return $( ( w, h, )=> `0,0,${w},${h}`, this.width, this.height, );
 	}
 	
 	move( x, y, )

@@ -9,6 +9,13 @@ export default class Mink2DViewport
 		this.area= new Model( { t:{ start:-8, end:8, }, x:{ start:new Complex( '-8i', ), end:new Complex( '8i', ), }, }, );
 		this.resolution= new Model( 256, );
 		this.stroke= new Model( 1, );
+		
+		this.areaWidth= $( ( e, s, )=> sub( e, s, ).i, this.area.x.end, this.area.x.start, );
+		this.areaHeight= $( ( e, s, )=> e - s, this.area.t.end, this.area.t.start, );
+		this.HWRatio= $( ( ah, aw, )=> ah/aw, this.areaHeight, this.areaWidth, );
+		this.width= this.resolution;
+		this.height= $( ( r, hwr, )=> r*hwr, this.resolution, this.HWRatio, );
+		this.viewBox= $( ( w, h, )=> `0,0,${w},${h}`, this.width, this.height, );
 	}
 	
 	set( [ tStart, tEnd, ], [ xStart, xEnd, ], resolution, stroke=1, )
@@ -19,36 +26,6 @@ export default class Mink2DViewport
 		this.area.x.end=    new Complex( xEnd, );
 		this.resolution.setValue( resolution, );
 		this.stroke.setValue( stroke, );
-	}
-	
-	get areaWidth()
-	{
-		return $( ( e, s, )=> sub( e, s, ).i, this.area.x.end, this.area.x.start, );
-	}
-	
-	get areaHeight()
-	{
-		return $( ( e, s, )=> e - s, this.area.t.end, this.area.t.start, );
-	}
-	
-	get width()
-	{
-		return this.resolution;
-	}
-	
-	get height()
-	{
-		return $( ( r, hwr, )=> r*hwr, this.resolution, this.HWRatio, );
-	}
-	
-	get HWRatio()
-	{
-		return $( ( ah, aw, )=> ah/aw, this.areaHeight, this.areaWidth, );
-	}
-	
-	get viewBox()
-	{
-		return $( ( w, h, )=> `0,0,${w},${h}`, this.width, this.height, );
 	}
 	
 	move( t, x, )
