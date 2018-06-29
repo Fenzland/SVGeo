@@ -7,8 +7,11 @@ canvas.view( [ -16, 16, ], [ '-16i', '16i', ], 768, 1.25, );
 const p_O= canvas.point( 0, 0, { label:'O', }, );
 const p_A= canvas.point( -4., '-5i', { label:'A', free:true, color:'hsla(180,100%,40%,1)', }, );
 const p_B= canvas.point( 3, '2i', { label:'B', free:true, color:'hsla(210,100%,40%,1)', }, );
+const p_C= canvas.point( -2, '4i', { label:'C', free:true, color:'hsla(160,100%,40%,1)' }, );
 
 const l_1= p_A.lineTo( p_B, { label:'l1', }, );
+const l_2= p_O.lineTo( p_C, { label:'l2', }, );
+
 const O_0= p_O.circle( 0, { color:'hsla(0,100%,50%,1)', }, );
 const O_1= p_O.circle( 2, { color:'hsla(10,100%,50%,1)', }, );
 const O_2= p_O.circle( 4, { color:'hsla(20,100%,50%,1)', }, );
@@ -28,12 +31,17 @@ const O_7i= p_O.circle( '14i', { color:'hsla(-70,100%,50%,1)', }, );
 const foot= l_1.foot( p_O, { color:'yellow', }, );
 
 const c_1= l_1.cross( O_4, );
+const c_2= l_1.cross( l_2, { color:'green', }, );
+
+const T_1= l_1.perpendicular( p_O, );
+const L_1= l_1.parallelism( p_O, );
 
 canvas.show(
-	l_1,
+	l_1, l_2,
 	O_0, O_1, O_2, O_3, O_4, O_5, O_6, O_7, O_1i, O_2i, O_3i, O_4i, O_5i, O_6i, O_7i,
-	p_O, p_A, p_B,
-	foot, c_1,
+	T_1, L_1,
+	foot, c_1, c_2,
+	p_O, p_A, p_B, p_C,
 );
 
 export default canvas;
