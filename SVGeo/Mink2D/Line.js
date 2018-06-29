@@ -40,8 +40,13 @@ export default class Line extends Path
 		const d= this.distanceTo( circle.center, );
 		const foot= this.foot( circle.center, );
 		
+		const points= [
+			new Model( new Point( 0, 0, options, ), ),
+			new Model( new Point( 0, 0, options, ), ),
+		];
+		
 		return $(
-			( d, r, foot, footT, footX, x0, t0, x1, t1, )=> {
+			( d, r, footT, footX, x0, t0, x1, t1, )=> {
 				if( (r.r>0 && d.r>0 && d.r<r.r) || (r.i>0 && d.i>0 && d.i<r.i) )
 					return [];
 				else
@@ -53,12 +58,12 @@ export default class Line extends Path
 				
 				const R= Math.sqrt( div( sub( mul( r, r, ), mul( d, d, ), ), sum( (t1 - t0)*(t1 - t0), mul( sub( x1, x0, ), sub( x1, x0, ), ), ), ).r, );
 				
-				return [
-					new Point( footT - R*(t1 - t0), sub( footX, mul( R, sub( x1, x0, ), ), ), options, ),
-					new Point( footT - R*(t0 - t1), sub( footX, mul( R, sub( x0, x1, ), ), ), options, ),
-				];
+				points[0].valueOf().setCoor( footT - R*(t1 - t0), sub( footX, mul( R, sub( x1, x0, ), ), ), );
+				points[1].valueOf().setCoor( footT - R*(t0 - t1), sub( footX, mul( R, sub( x0, x1, ), ), ), );
+				
+				return points;
 			},
-			d, circle.r, foot, foot.valueOf().t, foot.valueOf().x, this.p0.x, this.p0.t, this.p1.x, this.p1.t,
+			d, circle.r, foot.valueOf().t, foot.valueOf().x, this.p0.x, this.p0.t, this.p1.x, this.p1.t,
 		);
 	}
 	

@@ -39,8 +39,13 @@ export default class Line extends Path
 		const d= this.distanceTo( circle.center, );
 		const foot= this.foot( circle.center, );
 		
+		const points= [
+			new Model( new Point( 0, 0, options, ), ),
+			new Model( new Point( 0, 0, options, ), ),
+		];
+		
 		return $(
-			( d, r, foot, footX, footY, y0, x0, y1, x1, )=> {
+			( d, r, footX, footY, y0, x0, y1, x1, )=> {
 				if( d > r )
 					return [];
 				else
@@ -49,12 +54,12 @@ export default class Line extends Path
 				
 				const R= Math.sqrt( (r*r - d*d)/((x1 - x0)*(x1 - x0) - - (y1 - y0)*(y1 - y0)), );
 				
-				return [
-					new Point( footX - R*(x1 - x0), footY - R*(y1 - y0), options, ),
-					new Point( footX - R*(x0 - x1), footY - R*(y0 - y1), options, ),
-				];
+				points[0].valueOf().setCoor( footX - R*(x1 - x0), footY - R*(y1 - y0), );
+				points[1].valueOf().setCoor( footX - R*(x0 - x1), footY - R*(y0 - y1), );
+				
+				return points;
 			},
-			d, circle.r, foot, foot.valueOf().x, foot.valueOf().y, this.p0.y, this.p0.x, this.p1.y, this.p1.x,
+			d, circle.r, foot.valueOf().x, foot.valueOf().y, this.p0.y, this.p0.x, this.p1.y, this.p1.x,
 		);
 	}
 	
