@@ -18,8 +18,15 @@ export default class Circle extends Path
 		this.options= options;
 	}
 	
-	crossLine()
-	{}
+	crossLine( line, options={}, )
+	{
+		return line.crossCircle( this, options, );
+	}
+	
+	crossCircle( circle, options={}, )
+	{
+		
+	}
 	
 	get o()
 	{
