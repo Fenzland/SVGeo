@@ -7,13 +7,13 @@ export default function movement( target, viewport, )
 		if( e.target!==this )
 			return;
 		
-		let [ oX, oY, ]= [ e.screenX, e.screenY, ];
+		let [ oX, oY, ]= [ e.offsetX, e.offsetY, ];
 		
 		function move( e, )
 		{
-			viewport.moveTarget( target, e.screenX - oX, oY - e.screenY, );
+			viewport.moveTarget( target, e.offsetX - oX, oY - e.offsetY, );
 			
-			[ oX, oY, ]= [ e.screenX, e.screenY, ];
+			[ oX, oY, ]= [ e.offsetX, e.offsetY, ];
 		}
 		
 		function stop()
