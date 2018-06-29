@@ -12,21 +12,23 @@ const p_C= canvas.point( -2, '4i', { label:'C', free:true, color:'hsla(160,100%,
 const l_1= p_A.lineTo( p_B, { label:'l1', }, );
 const l_2= p_O.lineTo( p_C, { label:'l2', }, );
 
-const O_0= p_O.circle( 0, { color:'hsla(0,100%,50%,1)', }, );
-const O_1= p_O.circle( 2, { color:'hsla(10,100%,50%,1)', }, );
+const O_0= p_O.circle( 0, { color:'hsla(0,100%,50%,0.25)', }, );
+const O_1= p_O.circle( 2, { color:'hsla(10,100%,50%,0.25)', }, );
 const O_2= p_O.circle( 4, { color:'hsla(20,100%,50%,1)', }, );
-const O_3= p_O.circle( 6, { color:'hsla(30,100%,50%,1)', }, );
-const O_4= p_O.circle( 8, { color:'hsla(40,100%,50%,1)', }, );
-const O_5= p_O.circle( 10, { color:'hsla(50,100%,50%,1)', }, );
-const O_6= p_O.circle( 12, { color:'hsla(60,100%,50%,1)', }, );
-const O_7= p_O.circle( 14, { color:'hsla(70,100%,50%,1)', }, );
-const O_1i= p_O.circle( '2i', { color:'hsla(-10,100%,50%,1)', }, );
-const O_2i= p_O.circle( '4i', { color:'hsla(-20,100%,50%,1)', }, );
-const O_3i= p_O.circle( '6i', { color:'hsla(-30,100%,50%,1)', }, );
-const O_4i= p_O.circle( '8i', { color:'hsla(-40,100%,50%,1)', }, );
-const O_5i= p_O.circle( '10i', { color:'hsla(-50,100%,50%,1)', }, );
-const O_6i= p_O.circle( '12i', { color:'hsla(-60,100%,50%,1)', }, );
-const O_7i= p_O.circle( '14i', { color:'hsla(-70,100%,50%,1)', }, );
+const O_3= p_O.circle( 6, { color:'hsla(30,100%,50%,0.25)', }, );
+const O_4= p_O.circle( 8, { color:'hsla(40,100%,50%,0.25)', }, );
+const O_5= p_O.circle( 10, { color:'hsla(50,100%,50%,0.25)', }, );
+const O_6= p_O.circle( 12, { color:'hsla(60,100%,50%,0.25)', }, );
+const O_7= p_O.circle( 14, { color:'hsla(70,100%,50%,0.25)', }, );
+const O_1i= p_O.circle( '2i', { color:'hsla(-10,100%,50%,0.25)', }, );
+const O_2i= p_O.circle( '4i', { color:'hsla(-20,100%,50%,0.25)', }, );
+const O_3i= p_O.circle( '6i', { color:'hsla(-30,100%,50%,0.25)', }, );
+const O_4i= p_O.circle( '8i', { color:'hsla(-40,100%,50%,0.25)', }, );
+const O_5i= p_O.circle( '10i', { color:'hsla(-50,100%,50%,0.25)', }, );
+const O_6i= p_O.circle( '12i', { color:'hsla(-60,100%,50%,0.25)', }, );
+const O_7i= p_O.circle( '14i', { color:'hsla(-70,100%,50%,0.25)', }, );
+
+const O_8= p_C.circle( 2, );
 
 const foot= l_1.foot( p_O, { color:'yellow', }, );
 
@@ -38,7 +40,7 @@ const L_1= l_1.parallelism( p_O, );
 
 canvas.show(
 	l_1, l_2,
-	O_0, O_1, O_2, O_3, O_4, O_5, O_6, O_7, O_1i, O_2i, O_3i, O_4i, O_5i, O_6i, O_7i,
+	O_0, O_1, O_2, O_3, O_4, O_5, O_6, O_7, O_1i, O_2i, O_3i, O_4i, O_5i, O_6i, O_7i, O_8,
 	T_1, L_1,
 	foot, c_1, c_2,
 	p_O, p_A, p_B, p_C,
