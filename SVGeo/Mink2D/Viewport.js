@@ -101,16 +101,16 @@ export default class Mink2DViewport
 					
 					if( r.r>0 )
 						if( t - oT < r.r && t - oT > -r.r )
-							t= sT*r.r
+							t= sT*r.r - - oT;
 					
 					if( r.i>0 )
 						if( x.i - oX.i < r.i && x.i - oX.i > -r.i )
-							x= mul( sX, r, )
+							x= sum( mul( sX, r, ), oX, );
 					
 					if( (t - oT)*(t - oT) - (x.i - oX.i)*(x.i - oX.i) > mul( r, r, ).r )
-						return { t:sT*Math.sqrt( mul( r, r, ).r - - (x.i - oX.i)*(x.i - oX.i), ), x:x, }
+						return { t:oT - - sT*Math.sqrt( Math.max( 0, mul( r, r, ).r - - (x.i - oX.i)*(x.i - oX.i), ), ), x:x, }
 					else
-						return { t:t, x:mul( 'i', sX*Math.sqrt( (t - oT)*(t - oT) - mul( r, r, ).r, ), ), }
+						return { t:t, x:mul( 'i', oX.i - - sX*Math.sqrt( Math.max( 0, (t - oT)*(t - oT) - mul( r, r, ).r, ), ), ), }
 				},
 				circle.r, circle.o.t, circle.o.x, t, x,
 			);
@@ -128,12 +128,13 @@ export default class Mink2DViewport
 		
 		function handle( corner, )
 		{
-			const t1= $( ( r, t0, x0, a0_t, a1_t, )=> ((r.r>0? t0>0 : x0.i>0)? a0_t : a1_t), circle.r, corner.t, corner.x, apexes[0].t, apexes[1].t, );
-			const x1= $( ( r, t0, x0, a0_x, a1_x, )=> ((r.r>0? t0>0 : x0.i>0)? a0_x : a1_x), circle.r, corner.t, corner.x, apexes[0].x, apexes[1].x, );
+			const t1= $( ( r, oT, oX, t0, x0, a0_t, a1_t, )=> ((r.r>0? t0>oT : x0.i>oX.i)? a0_t : a1_t), circle.r, circle.o.t, circle.o.x, corner.t, corner.x, apexes[0].t, apexes[1].t, );
+			const x1= $( ( r, oT, oX, t0, x0, a0_x, a1_x, )=> ((r.r>0? t0>oT : x0.i>oX.i)? a0_x : a1_x), circle.r, circle.o.t, circle.o.x, corner.t, corner.x, apexes[0].x, apexes[1].x, );
 			
 			const h= $(
-				( r, t0, x0, t1, x1, )=> {
-					const cos= Math.abs(t0*t1 - x0.i*x1.i)/Math.sqrt( (t0*t0 - x0.i*x0.i)*(t1*t1 - x1.i*x1.i), );
+				( r, oT, oX, t0, x0, t1, x1, )=> {
+					// const cos= Math.abs(t0*t1 - x0.i*x1.i)/Math.sqrt( (t0*t0 - x0.i*x0.i)*(t1*t1 - x1.i*x1.i), );
+					const cos= ((t0 - oT)*(t1 - oT) - (x0.i - oX.i)*(x1.i - oX.i))/mul( r, r, ).r;
 					const h_i= (4/3)*(Math.sqrt( -(1 - cos*cos), ) - Math.sqrt( -2*(1 - cos), ))/(1 - cos);
 					const s= (t1 - t0)*(x1.i - x0.i)>0? 1 : -1;
 					
@@ -143,13 +144,19 @@ export default class Mink2DViewport
 						: mul( 'i', h_i, s, )
 					);
 				},
-				circle.r, corner.t, corner.x, t1, x1,
+				circle.r, circle.o.t, circle.o.x, corner.t, corner.x, t1, x1,
 			);
 			
 			
 			return [
-				{ t:$( ( t, x, h, )=> t - - mul( x, h, -1 ).r, corner.t, corner.x, h, ), x:$( ( t, x, h, )=> sum( x, mul( t, h, ), ), corner.t, corner.x, h, ), },
-				{ t:$( ( t, x, h, )=> t - - mul( x, h, ).r, t1, x1, h, ), x:$( ( t, x, h, )=> sum( x, mul( t, h, -1, ), ), t1, x1, h, ), },
+				{
+					t: $( ( t, x, h, oX, )=> t - - mul( sub( x, oX, ), h, -1 ).r, corner.t, corner.x, h, circle.o.x, ),
+					x: $( ( t, x, h, oT, )=> sum( x, mul( t - oT, h, ), ), corner.t, corner.x, h, circle.o.t, ),
+				},
+				{
+					t: $( ( t, x, h, oX, )=> t - - mul( sub( x, oX, ), h, ).r, t1, x1, h, circle.o.x, ),
+					x: $( ( t, x, h, oT, )=> sum( x, mul( t - oT, h, -1, ), ), t1, x1, h, circle.o.t, ),
+				},
 			];
 		}
 		
