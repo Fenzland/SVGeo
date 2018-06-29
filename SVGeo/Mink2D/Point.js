@@ -25,6 +25,12 @@ export default class Point extends GPoint
 		return new Circle( this, radius, options, );
 	}
 	
+	setCoor( t, x, )
+	{
+		this.t.setValue( t, );
+		this.x.setValue( x, );
+	}
+	
 	move( t, x, )
 	{
 		this.t.setValue( this.t - - t, );
