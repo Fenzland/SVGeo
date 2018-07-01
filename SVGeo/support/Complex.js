@@ -169,3 +169,23 @@ export function neg( x, )
 {
 	return Complex.mul( x, -1, );
 }
+
+export function exp( num, )
+{
+	return Complex.exp( num, );
+}
+
+export function log( num, )
+{
+	return Complex.log( num, );
+}
+
+export function cos( num, )
+{
+	return Complex.cos( num, );
+}
+
+export function sin( num, )
+{
+	return Complex.sin( num, );
+}
