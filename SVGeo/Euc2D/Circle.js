@@ -26,8 +26,8 @@ export default class Circle extends Path
 		];
 		
 		return $(
-			( r0, r1, c0x, c0y, c1x, c1y, )=> {
-				const d= Math.sqrt( (c0x - c1x)*(c0x - c1x) - - (c0y - c1y)*(c0y - c1y), );
+			( r0, r1, o0x, o0y, o1x, o1y, )=> {
+				const d= Math.sqrt( (o0x - o1x)*(o0x - o1x) - - (o0y - o1y)*(o0y - o1y), );
 				const [ dr, sr, ]= [ Math.abs( r0 - r1, ), r0 - - r1, ];
 				
 				if( d===0 || d > sr || d < dr )
@@ -35,7 +35,7 @@ export default class Circle extends Path
 				else
 				if( d===sr || d===dr )
 				{
-					p0.valueOf().setCoor( (c1x - c0x)*r0/r - - c0x, (c1y - c0y)*r0/r - - c0y, );
+					p0.valueOf().setCoor( (o1x - o0x)*r0/r - - o0x, (o1y - o0y)*r0/r - - o0y, );
 					
 					return [ p0, ];
 				}
@@ -44,8 +44,8 @@ export default class Circle extends Path
 					const l= (r0*r0 -r1*r1 - - d*d)/(2*d);
 					const h= Math.sqrt( r0*r0 - l*l, );
 					
-					p0.valueOf().setCoor( (c1x - c0x)*l/d - (c1y - c0y)*h/d - - c0x, (c1y - c0y)*l/d - - (c1x - c0x)*h/d - - c0y, );
-					p1.valueOf().setCoor( (c1x - c0x)*l/d - - (c1y - c0y)*h/d - - c0x, (c1y - c0y)*l/d - (c1x - c0x)*h/d - - c0y, );
+					p0.valueOf().setCoor( (o1x - o0x)*l/d - (o1y - o0y)*h/d - - o0x, (o1y - o0y)*l/d - - (o1x - o0x)*h/d - - o0y, );
+					p1.valueOf().setCoor( (o1x - o0x)*l/d - - (o1y - o0y)*h/d - - o0x, (o1y - o0y)*l/d - (o1x - o0x)*h/d - - o0y, );
 					
 					return [ p0, p1, ];
 				}
