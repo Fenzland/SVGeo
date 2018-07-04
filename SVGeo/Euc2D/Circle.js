@@ -41,7 +41,7 @@ export default class Circle extends Path
 				}
 				else
 				{
-					const l= (r0*r0 -r1*r1 - - d*d)/(2*d);
+					const l= (r0*r0 - r1*r1 - - d*d)/(2*d);
 					const h= Math.sqrt( r0*r0 - l*l, );
 					
 					p0.valueOf().setCoor( (o1x - o0x)*l/d - (o1y - o0y)*h/d - - o0x, (o1y - o0y)*l/d - - (o1x - o0x)*h/d - - o0y, );

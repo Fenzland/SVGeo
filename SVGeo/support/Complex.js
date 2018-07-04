@@ -51,7 +51,7 @@ export default class Complex extends Number
 	
 	get arg()
 	{
-		return num.r>=0?Math.atan( num.i/num.r, ): num.i>=0?(Math.atan( num.i/num.r, ) - - π): (Math.atan( num.i/num.r, ) - π);
+		return this.r>=0?Math.atan( this.i/this.r, ): this.i>=0?(Math.atan( this.i/this.r, ) - - π): (Math.atan( this.i/this.r, ) - π);
 	}
 	
 	get unit()

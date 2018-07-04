@@ -28,7 +28,7 @@ export default class Point extends GPoint
 	setCoor( t, x, )
 	{
 		this.t.setValue( t, );
-		this.x.setValue( x, );
+		this.x.setValue( new Complex( x, ), );
 	}
 	
 	move( t, x, )
