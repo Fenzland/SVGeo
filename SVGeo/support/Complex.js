@@ -143,6 +143,21 @@ export default class Complex extends Number
 			'-0.5i',
 		);
 	}
+	
+	static equ( num0, num1, )
+	{
+		[ num0, num1, ]= [ new Complex( num0, ), new Complex( num1, ), ];
+		
+		return (
+			(
+				(num0.r===Infinity || num0.r===-Infinity || num0.i===Infinity || num0.i===-Infinity)
+			&&
+				(num1.r===Infinity || num1.r===-Infinity || num1.i===Infinity || num1.i===-Infinity)
+			)
+		||
+			num0.r===num1.r && num0.i===num1.i
+		);
+	}
 }
 
 export function sum( ...nums )
@@ -188,4 +203,9 @@ export function cos( num, )
 export function sin( num, )
 {
 	return Complex.sin( num, );
+}
+
+export function equ( num0, num1, )
+{
+	return Complex.equ( num0, num1, );
 }
