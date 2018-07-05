@@ -21,7 +21,7 @@ body>main
 	margin: 0 1em;
 }
 
-body>main>article>p
+body>main>article
 {
 	margin: 0 auto;
 	max-width: 1536px;

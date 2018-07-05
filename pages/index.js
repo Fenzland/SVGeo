@@ -1,5 +1,5 @@
 import Page from '../OvO/view/Page.js';
-import HTML, { header, footer, section, article, main, div, h1, h2, p, small, a, figure, figcaption, } from '../OvO/view/HTML.js';
+import HTML, { header, footer, section, article, main, div, h1, h2, h3, p, small, a, figure, figcaption, } from '../OvO/view/HTML.js';
 import euc2D from '../demos/euc2D.js';
 import mink2D from '../demos/mink2D.js';
 
@@ -57,8 +57,9 @@ export default new Page( {
 							figcaption( 'Minkowski 2D space', )
 						),
 					),
+					h3( 'More demos', ),
 					p(
-						' ',
+						a( 'Create points', ),
 					),
 				),
 			),

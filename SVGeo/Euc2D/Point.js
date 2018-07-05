@@ -1,7 +1,7 @@
-import Line from './Line.js';
-import Circle from './Circle.js';
 import Model from '../../OvO/model/Model.js';
 import GPoint from '../genaral/Point.js';
+import Line from './Line.js';
+import Circle from './Circle.js';
 
 export default class Point extends GPoint
 {
