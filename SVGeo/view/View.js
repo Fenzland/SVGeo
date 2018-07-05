@@ -82,6 +82,7 @@ export default class View
 					fill:point.options.color||'hsla(0,0%,0%,1)',
 				},
 				(point.options.free? movement( point, this.viewport, ) : undefined),
+				SVG.title( point.options.label, ),
 			),
 		], );
 	}
@@ -110,16 +111,19 @@ export default class View
 						y2: data.p1.y,
 						...styles,
 					},
+					SVG.title( path.options.label, ),
 				);
 			
 			case 'circle':
 				return SVG.circle(
 					{ cx:data.o.x, cy:data.o.y, r:data.r, ...styles, },
+					SVG.title( path.options.label, ),
 				);
 			
 			case 'path':
 				return SVG.path(
 					{ d:data.d, ...styles, },
+					SVG.title( path.options.label, ),
 				);
 			
 			default:
