@@ -1,0 +1,57 @@
+body>header
+{
+	height: 12vh;
+	overflow: hidden;
+}
+
+body>header>h1
+{
+	font-size: 4vh;
+	text-align: center;
+}
+
+body>main>svg
+{
+	display: block;
+	margin: 0 auto 3vh;
+}
+
+body>main
+{
+	margin: 0 1em;
+}
+
+body>main>article>p
+{
+	margin: 0 auto;
+	max-width: 1536px;
+}
+
+article>p:first-child
+{
+	text-indent: 0;
+}
+
+article>p:first-child::first-letter
+{
+	font-size: 2em;
+}
+
+article>.flexible-line
+{
+	display: flex;
+	justify-content: space-evenly;
+}
+
+article>.flexible-line>*
+{
+	margin: 1em;
+}
+
+@media (max-width:1024px)
+{
+	article>.flexible-line
+	{
+		flex-wrap: wrap;
+	}
+}

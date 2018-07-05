@@ -1,5 +1,5 @@
 import Page from '../OvO/view/Page.js';
-import HTML, { header, footer, section, article, main, div, h1, h2, p, small, a, } from '../OvO/view/HTML.js';
+import HTML, { header, footer, section, article, main, div, h1, h2, p, small, a, figure, figcaption, } from '../OvO/view/HTML.js';
 import euc2D from '../demos/euc2D.js';
 import mink2D from '../demos/mink2D.js';
 
@@ -18,10 +18,20 @@ export default new Page( {
 			),
 			main(
 				article(
-					mink2D,
-				),
-				article(
-					euc2D,
+					div(
+						{ class:'flexible-line', },
+						figure(
+							euc2D,
+							figcaption( 'Euclidean 2D space', )
+						),
+						figure(
+							mink2D,
+							figcaption( 'Minkowski 2D space', )
+						),
+					),
+					p(
+						' ',
+					),
 				),
 			),
 		];
