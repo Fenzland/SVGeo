@@ -1,6 +1,7 @@
 import Model, { $, } from '../../OvO/model/Model.js';
 import Path from '../genaral/Path.js';
 import Point from './Point.js';
+import PointOnLine from './PointOnLine.js';
 
 export default class Line extends Path
 {
@@ -159,6 +160,11 @@ export default class Line extends Path
 		);
 		
 		return new Line( point, other, options, );
+	}
+	
+	point( u, options, )
+	{
+		return new PointOnLine( this, u, options, );
 	}
 }
 
