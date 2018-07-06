@@ -92,6 +92,18 @@ export default class Euc2DViewport
 		}
 	}
 	
+	renderSegment( segment, )
+	{
+		return {
+			type: 'line',
+			data: {
+				p1: this.transformPoint( segment.p1, ),
+				p0: this.transformPoint( segment.p0, ),
+				pO: this.transformPoint( segment.p0, ),
+			},
+		}
+	}
+	
 	renderCircle( circle, )
 	{
 		return {

@@ -1,4 +1,5 @@
 import Line from './Line.js';
+import Segment from './Segment.js';
 import Circle from './Circle.js';
 import Model from '../../OvO/model/Model.js';
 import GPoint from '../genaral/Point.js';
@@ -18,6 +19,11 @@ export default class Point extends GPoint
 	lineTo( to, options={}, )
 	{
 		return new Line( this, to, options, );
+	}
+	
+	segmentTo( to, options={}, )
+	{
+		return new Segment( this, to, options, );
 	}
 	
 	circle( radius, options={}, )
