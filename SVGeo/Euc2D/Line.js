@@ -81,8 +81,8 @@ export default class Line extends Path
 				
 				const R= Math.sqrt( (r*r - d*d)/((x1 - x0)*(x1 - x0) - - (y1 - y0)*(y1 - y0)), );
 				
-				points[0].valueOf().setCoor( footX - R*(x1 - x0), footY - R*(y1 - y0), );
-				points[1].valueOf().setCoor( footX - R*(x0 - x1), footY - R*(y0 - y1), );
+				points[0].valueOf().setCoor( footX - R*(x0 - x1), footY - R*(y0 - y1), );
+				points[1].valueOf().setCoor( footX - R*(x1 - x0), footY - R*(y1 - y0), );
 				
 				return points;
 			},

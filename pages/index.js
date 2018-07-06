@@ -50,11 +50,11 @@ export default new Page( {
 						{ class:'flexible-line', },
 						figure(
 							euc2D,
-							figcaption( 'Euclidean 2D space', )
+							figcaption( 'Euclidean 2D space', ),
 						),
 						figure(
 							mink2D,
-							figcaption( 'Minkowski 2D space', )
+							figcaption( 'Minkowski 2D space', ),
 						),
 					),
 					h3( 'More demos', ),

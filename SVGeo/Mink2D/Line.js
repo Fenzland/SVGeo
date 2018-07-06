@@ -85,8 +85,8 @@ export default class Line extends Path
 				
 				const R= Math.sqrt( div( sub( mul( r, r, ), mul( d, d, ), ), sum( (t1 - t0)*(t1 - t0), mul( sub( x1, x0, ), sub( x1, x0, ), ), ), ).r, );
 				
-				points[0].valueOf().setCoor( footT - R*(t1 - t0), sub( footX, mul( R, sub( x1, x0, ), ), ), );
-				points[1].valueOf().setCoor( footT - R*(t0 - t1), sub( footX, mul( R, sub( x0, x1, ), ), ), );
+				points[0].valueOf().setCoor( footT - R*(t0 - t1), sub( footX, mul( R, sub( x0, x1, ), ), ), );
+				points[1].valueOf().setCoor( footT - R*(t1 - t0), sub( footX, mul( R, sub( x1, x0, ), ), ), );
 				
 				return points;
 			},

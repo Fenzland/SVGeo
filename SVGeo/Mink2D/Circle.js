@@ -9,10 +9,10 @@ export default class Circle extends Path
 	{
 		super();
 		
-		radius= new Complex( radius, );
+		radius= new Model( radius, ).$( x=> new Complex( x, ), );
 		
-		if( radius.r!==0 && radius.i!==0 )
-			throw new Error( `The radius of circle must be a real or a pure imarginary number, '${radius}' is invalid.`, );
+		if( radius.valueOf().r!==0 && radius.valueOf().i!==0 )
+			throw new Error( `The radius of circle must be a real or a pure imarginary number, '${radius.valueOf()}' is invalid.`, );
 		
 		this.center= center;
 		this.radius= new Model( radius, );

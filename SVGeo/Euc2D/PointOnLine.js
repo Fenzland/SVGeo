@@ -11,14 +11,19 @@ export default class PointOnLine extends GPoint
 		
 		this.line= line;
 		
+		const r= $(
+			( x0, y0, x1, y1, )=> Math.sqrt( (x1 - x0)*(x1 - x0) - - (y1 - y0)*(y1 - y0), ),
+			line.p0.x, line.p0.y, line.p1.x, line.p1.y,
+		);
+		
 		this.u= new Model( u, );
 		this.x= $(
-			( u, x0, y0, x1, y1, )=> x0 - - u*(x1 - x0)/Math.sqrt( (x1 - x0)*(x1 - x0) - - (y1 - y0)*(y1 - y0), ),
-			this.u, line.p0.x, line.p0.y, line.p1.x, line.p1.y,
+			( u, x0, x1, )=> x0 - - (x1 - x0)*u/r,
+			this.u, line.p0.x, line.p1.x,
 		);
 		this.y= $(
-			( u, x0, y0, x1, y1, )=> y0 - - u*(y1 - y0)/Math.sqrt( (x1 - x0)*(x1 - x0) - - (y1 - y0)*(y1 - y0), ),
-			this.u, line.p0.x, line.p0.y, line.p1.x, line.p1.y,
+			( u, y0, y1, )=> y0 - - (y1 - y0)*u/r,
+			this.u, line.p0.y, line.p1.y,
 		);
 		this.options= options;
 	}
