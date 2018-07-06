@@ -67,6 +67,18 @@ export default class Complex extends Number
 			return new Complex( this.r/this.sqmod, this.i/this.sqmod, );
 	}
 	
+	sqrt()
+	{
+		if( this.r===0 && this.i===0 )
+			return new (this.constructor)( 0, 0, );
+		
+		const sqmod= this.mod;
+		const cos= Math.sqrt( (this.r/sqmod + 1)/2, );
+		const mod= Math.sqrt( sqmod, );
+		
+		return new (this.constructor)( cos*mod, Math.sqrt( 1 - cos*cos, )*mod, );
+	}
+	
 	static sum( ...nums )
 	{
 		return new this( ...nums.map( x=> new Complex( x, ) ).reduce( ( sum, num, )=> (sum[0]+=num.r,sum[1]+=num.i,sum), [ 0, 0, ], ), );
