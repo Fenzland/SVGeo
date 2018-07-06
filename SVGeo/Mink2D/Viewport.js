@@ -89,6 +89,7 @@ export default class Mink2DViewport
 			data: {
 				p0: this.transformPoint( { x:xL, t:tL, }, ),
 				p1: this.transformPoint( { x:xR, t:tR, }, ),
+				pO: this.transformPoint( line.p0, ),
 			},
 		}
 	}

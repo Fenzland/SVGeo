@@ -103,6 +103,12 @@ export default class View
 		switch( type )
 		{
 			case 'line':
+				
+				styles['stroke-dashoffset']= $(
+					( x0, y0, xO, yO, )=> -Math.sqrt( (xO - x0)*(xO - x0) - - (yO - y0)*(yO - y0), ),
+					data.p0.x, data.p0.y, data.pO.x, data.pO.y,
+				);
+				
 				return SVG.line(
 					{
 						x1: data.p0.x,

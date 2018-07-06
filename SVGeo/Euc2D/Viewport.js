@@ -87,6 +87,7 @@ export default class Euc2DViewport
 			data: {
 				p0: this.transformPoint( { x:xL, y:yL, }, ),
 				p1: this.transformPoint( { x:xR, y:yR, }, ),
+				pO: this.transformPoint( line.p0, ),
 			},
 		}
 	}
