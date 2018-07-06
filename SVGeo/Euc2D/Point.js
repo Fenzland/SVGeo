@@ -1,4 +1,4 @@
-import Model from '../../OvO/model/Model.js';
+import Model, { $, } from '../../OvO/model/Model.js';
 import GPoint from '../genaral/Point.js';
 import Line from './Line.js';
 import Segment from './Segment.js';
@@ -28,6 +28,19 @@ export default class Point extends GPoint
 	circle( radius, options={}, )
 	{
 		return new Circle( this, radius, options, );
+	}
+	
+	distanceTo( point, )
+	{
+		return $(
+			( x, y, x0, y0, )=> Math.sqrt( (x - x0)*(x - x0) - - (y - y0)*(y - y0), ),
+			point.x, point.y, this.x, this.y,
+		);
+	}
+	
+	circleTo( point, options={}, )
+	{
+		return this.circle( this.distanceTo( point, ), options, );
 	}
 	
 	setCoor( x, y, )

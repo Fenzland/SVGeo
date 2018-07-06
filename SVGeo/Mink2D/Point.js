@@ -1,7 +1,7 @@
+import Model, { $, } from '../../OvO/model/Model.js';
 import Line from './Line.js';
 import Segment from './Segment.js';
 import Circle from './Circle.js';
-import Model from '../../OvO/model/Model.js';
 import GPoint from '../genaral/Point.js';
 import Complex, { sum, mul, sub, div, } from '../support/Complex.js';
 
@@ -29,6 +29,19 @@ export default class Point extends GPoint
 	circle( radius, options={}, )
 	{
 		return new Circle( this, radius, options, );
+	}
+	
+	distanceTo( point, )
+	{
+		return $(
+			( t, x, t0, x0, )=> sum( (t - t0)*(t - t0), mul( sub( x, x0 ), sub( x, x0 ), ), ).sqrt(),
+			point.t, point.x, this.t, this.x,
+		);
+	}
+	
+	circleTo( point, options={}, )
+	{
+		return this.circle( this.distanceTo( point, ), options, );
 	}
 	
 	setCoor( t, x, )
