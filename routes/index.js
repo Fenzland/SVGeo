@@ -7,5 +7,7 @@ router.pageDir= resolveHere( '../pages', );
 router.basePath= resolveHere( '..', );
 
 router.route( 'home', '/', 'index', );
+router.route( 'equilateral-triangle', '/demos/equilateral-triangle', );
+router.route( 'angular-bisector', '/demos/angular-bisector', );
 
 export default router;
