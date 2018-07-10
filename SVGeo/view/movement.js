@@ -24,8 +24,10 @@ export default function movement( target, viewport, )
 			[ sX, sY, ]= [ document.scrollingElement.scrollLeft, document.scrollingElement.scrollTop, ];
 		}
 		
-		function stop()
+		function stop( e, )
 		{
+			move( e, )
+			
 			document.removeEventListener( 'mousemove', move, )
 			
 			document.removeEventListener( 'scroll', scroll, )
