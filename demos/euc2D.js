@@ -21,10 +21,11 @@ const c_2= l_1.cross( l_2, { color:'green', }, );
 const c_3= O_0.cross( O_1, { color:'green', }, );
 
 const pl_1= l_1.point( -1, { color:'red', free:true, }, );
+const pO_1= O_1.point( Math.PI/4, { color:'red', free:true, }, );
 
 const T_1= l_1.perpendicular( p_O, );
 const L_1= l_1.parallelism( p_O, );
 
-canvas.show( l_1, l_2, T_1, L_1, O_0, O_1, c_1, c_2, c_3, foot, p_O, p_A, p_B, p_C, pl_1, );
+canvas.show( l_1, l_2, T_1, L_1, O_0, O_1, c_1, c_2, c_3, foot, p_O, p_A, p_B, p_C, pl_1, pO_1, );
 
 export default canvas;
