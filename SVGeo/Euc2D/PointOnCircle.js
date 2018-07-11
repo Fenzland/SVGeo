@@ -33,10 +33,7 @@ export default class PointOnCircle extends GPoint
 	{
 		const Ox= this.circle.o.x.valueOf();
 		const Oy= this.circle.o.y.valueOf();
-		const u= this.u.valueOf();
 		
-		const du= new Complex( x - Ox, y - Oy, ).arg - new Complex( ox - Ox, oy - Oy, ).arg;
-		
-		this.u.setValue( u - - du, );
+		this.u.setValue( new Complex( x - Ox, y - Oy, ).arg, );
 	}
 }
