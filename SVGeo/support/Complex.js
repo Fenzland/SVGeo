@@ -1,4 +1,4 @@
-const π= Math.PI;
+export const π= Math.PI;
 
 export default class Complex extends Number
 {
