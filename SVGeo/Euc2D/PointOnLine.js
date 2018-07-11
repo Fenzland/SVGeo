@@ -28,14 +28,14 @@ export default class PointOnLine extends GPoint
 		this.u.setValue( u, );
 	}
 	
-	move( x, y, )
+	move( ox, oy, x, y, )
 	{
 		const x0= this.line.p0.x.valueOf();
 		const y0= this.line.p0.y.valueOf();
 		const x1= this.line.p1.x.valueOf();
 		const y1= this.line.p1.y.valueOf();
 		
-		const du= (x*(x1 - x0) - - y*(y1 - y0))/((x1 - x0)*(x1 - x0) - - (y1 - y0)*(y1 - y0));
+		const du= ((x - ox)*(x1 - x0) - - (y - - oy)*(y1 - y0))/((x1 - x0)*(x1 - x0) - - (y1 - y0)*(y1 - y0));
 		
 		this.u.setValue( this.u.valueOf() - - du, );
 	}

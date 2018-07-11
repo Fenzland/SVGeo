@@ -2,6 +2,7 @@ import Model, { $, } from '../../OvO/model/Model.js';
 import GPoint from '../genaral/Point.js';
 import Line from './Line.js';
 import Circle from './Circle.js';
+import Complex from '../support/Complex.js';
 
 export default class PointOnLine extends GPoint
 {
@@ -28,14 +29,13 @@ export default class PointOnLine extends GPoint
 		this.u.setValue( u, );
 	}
 	
-	move( x, y, )
+	move( ox, oy, x, y, )
 	{
-		const ox= this.circle.o.x.valueOf();
-		const oy= this.circle.o.y.valueOf();
-		const r= this.circle.r.valueOf();
+		const Ox= this.circle.o.x.valueOf();
+		const Oy= this.circle.o.y.valueOf();
 		const u= this.u.valueOf();
 		
-		const du= y*Math.cos( u, )/r - x*Math.sin( u, )/r;
+		const du= new Complex( x - Ox, y - Oy, ).arg - new Complex( ox - Ox, oy - Oy, ).arg;
 		
 		this.u.setValue( u - - du, );
 	}

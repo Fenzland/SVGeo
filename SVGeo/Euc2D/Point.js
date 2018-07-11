@@ -49,9 +49,9 @@ export default class Point extends GPoint
 		this.y.setValue( y, );
 	}
 	
-	move( x, y, )
+	move( ox, oy, x, y, )
 	{
-		this.x.setValue( this.x - - x, );
-		this.y.setValue( this.y - - y, );
+		this.x.setValue( this.x - - x - ox, );
+		this.y.setValue( this.y - - y - oy, );
 	}
 }

@@ -26,12 +26,12 @@ export default class Euc2DViewport
 		this.stroke.setValue( stroke, );
 	}
 	
-	move( x, y, )
+	move( ox, oy, x, y, )
 	{
-		this.area.x.start= this.area.x.start - x;
-		this.area.x.end= this.area.x.end - x;
-		this.area.y.start= this.area.y.start - y;
-		this.area.y.end= this.area.y.end - y;
+		this.area.x.start= this.area.x.start - x - - ox;
+		this.area.x.end= this.area.x.end - x - - ox;
+		this.area.y.start= this.area.y.start - y - - oy;
+		this.area.y.end= this.area.y.end - y - - oy;
 	}
 	
 	moveTarget( target, ox, oy, x, y, )

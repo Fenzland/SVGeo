@@ -28,12 +28,12 @@ export default class Mink2DViewport
 		this.stroke.setValue( stroke, );
 	}
 	
-	move( t, x, )
+	move( ot, ox,  t, x, )
 	{
-		this.area.t.start= this.area.t.start - t;
-		this.area.t.end= this.area.t.end - t;
-		this.area.x.start= sub( this.area.x.start.valueOf(), x, );
-		this.area.x.end= sub( this.area.x.end.valueOf(), x, );
+		this.area.t.start= this.area.t.start - t - - ot;
+		this.area.t.end= this.area.t.end - t - - ot;
+		this.area.x.start= sum( this.area.x.start.valueOf(), mul( -1, x, ), ox, );
+		this.area.x.end= sum( this.area.x.end.valueOf(), mul( -1, x, ), ox, );
 	}
 	
 	moveTarget( target, ox, oy, x, y, )

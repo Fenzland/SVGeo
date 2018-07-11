@@ -50,9 +50,9 @@ export default class Point extends GPoint
 		this.x.setValue( new Complex( x, ), );
 	}
 	
-	move( t, x, )
+	move( ot, ox,  t, x, )
 	{
-		this.t.setValue( this.t - - t, );
-		this.x.setValue( sum( this.x.valueOf(), x, ), );
+		this.t.setValue( this.t - - t - ot, );
+		this.x.setValue( sum( this.x.valueOf(), x, mul( -1, ox, ), ), );
 	}
 }
