@@ -2,6 +2,7 @@ import Model, { $, } from '../../OvO/model/Model.js';
 import Path from '../genaral/Path.js';
 import Complex, { sum, mul, sub, div, log, cos, equ, } from '../support/Complex.js';
 import Point from './Point.js';
+import PointOnCircle from './PointOnCircle.js';
 
 export default class Circle extends Path
 {
@@ -92,6 +93,11 @@ export default class Circle extends Path
 			},
 			this.r, circle.r, this.o.t, this.o.x, circle.o.t, circle.o.x,
 		);
+	}
+	
+	point( u, options, )
+	{
+		return new PointOnCircle( this, u, options, );
 	}
 	
 	get o()
