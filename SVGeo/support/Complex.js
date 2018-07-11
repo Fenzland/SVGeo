@@ -132,8 +132,6 @@ export default class Complex extends Number
 	
 	static cos( num, )
 	{
-		num= new Complex( num, );
-		
 		return this.mul(
 			this.sum(
 				this.exp( this.mul( 'i', num, ), ),
@@ -145,8 +143,6 @@ export default class Complex extends Number
 	
 	static sin( num, )
 	{
-		num= new Complex( num, );
-		
 		return this.mul(
 			this.sum(
 				this.exp( this.mul( 'i', num, ), ),
@@ -154,6 +150,26 @@ export default class Complex extends Number
 			),
 			'-0.5i',
 		);
+	}
+	
+	static tan( num, )
+	{
+		return div( this.cos( num, ), this.sin( num, ), );
+	}
+	
+	static acos( num, )
+	{
+		return this.mul( '-i', this.log( this.sum( num, sub( mul( num, num, ), 1, ).sqrt(), ), ), );
+	}
+	
+	static asin( num, )
+	{
+		return this.mul( '-i', this.log( this.sum( this.mul( 'i', num, ), sub( 1, mul( num, num, ), ).sqrt(), ), ), );
+	}
+	
+	static atan( num, )
+	{
+		return this.mul( '-0.5i', this.log( div( this.sum( 1, this.mul( 'i', num, ), ), sub( 1, this.mul( 'i', num, ), ), ), ), );
 	}
 	
 	static equ( num0, num1, )
@@ -215,6 +231,26 @@ export function cos( num, )
 export function sin( num, )
 {
 	return Complex.sin( num, );
+}
+
+export function tan( num, )
+{
+	return Complex.tan( num, );
+}
+
+export function acos( num, )
+{
+	return Complex.acos( num, );
+}
+
+export function asin( num, )
+{
+	return Complex.asin( num, );
+}
+
+export function atan( num, )
+{
+	return Complex.atan( num, );
 }
 
 export function equ( num0, num1, )
