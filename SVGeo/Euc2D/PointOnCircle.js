@@ -4,7 +4,7 @@ import Line from './Line.js';
 import Circle from './Circle.js';
 import Complex from '../support/Complex.js';
 
-export default class PointOnLine extends GPoint
+export default class PointOnCircle extends GPoint
 {
 	constructor( circle, u, options={}, )
 	{
