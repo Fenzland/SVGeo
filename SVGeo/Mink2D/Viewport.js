@@ -155,7 +155,6 @@ export default class Mink2DViewport
 			
 			const h= $(
 				( r, oT, oX, t0, x0, t1, x1, )=> {
-					// const cos= Math.abs(t0*t1 - x0.i*x1.i)/Math.sqrt( (t0*t0 - x0.i*x0.i)*(t1*t1 - x1.i*x1.i), );
 					const cos= ((t0 - oT)*(t1 - oT) - (x0.i - oX.i)*(x1.i - oX.i))/mul( r, r, ).r;
 					const h_i= (4/3)*(Math.sqrt( -(1 - cos*cos), ) - Math.sqrt( -2*(1 - cos), ))/(1 - cos);
 					const s= (t1 - t0)*(x1.i - x0.i)>0? 1 : -1;
