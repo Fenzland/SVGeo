@@ -7,19 +7,23 @@ export default function movement( target, viewport, )
 		if( e.target!==this )
 			return;
 		
+		const [ oX, oY, ]= [ e.offsetX, e.offsetY, ];
+		
 		let [ cX, cY, ]= [ e.clientX, e.clientY, ];
 		let [ sX, sY, ]= [ document.scrollingElement.scrollLeft, document.scrollingElement.scrollTop, ];
 		
+		const [ dX, dY, ]= [ cX - - sX - oX, cY - - sY - oY, ];
+		
 		function move( e, )
 		{
-			viewport.moveTarget( target, e.clientX - cX, cY - e.clientY, );
+			viewport.moveTarget( target, cX - - sX - dX, cY - - sY - dY, e.clientX - - sX - dX, e.clientY - - sY - dY, );
 			
 			[ cX, cY, ]= [ e.clientX, e.clientY, ];
 		}
 		
 		function scroll( e, )
 		{
-			viewport.moveTarget( target, document.scrollingElement.scrollLeft - sX, sY - document.scrollingElement.scrollTop, );
+			viewport.moveTarget( target, cX - - sX - dX, cY - - sY - dY, cX - - document.scrollingElement.scrollLeft - dX, cY - - document.scrollingElement.scrollTop - dY, );
 			
 			[ sX, sY, ]= [ document.scrollingElement.scrollLeft, document.scrollingElement.scrollTop, ];
 		}

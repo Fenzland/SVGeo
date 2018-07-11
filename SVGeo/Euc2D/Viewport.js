@@ -34,11 +34,20 @@ export default class Euc2DViewport
 		this.area.y.end= this.area.y.end - y;
 	}
 	
-	moveTarget( target, x, y, )
+	moveTarget( target, ox, oy, x, y, )
 	{
+		const xSt= this.area.x.start.valueOf();
+		const yEn= this.area.y.end.valueOf();
+		const aw= this.areaWidth.valueOf();
+		const w= this.width.valueOf();
+		const ah= this.areaHeight.valueOf();
+		const h= this.height.valueOf();
+		
 		target.move(
-			x*this.areaWidth/this.width,
-			y*this.areaHeight/this.height,
+			xSt - - ox*aw/w,
+			yEn - oy*ah/h,
+			xSt - - x*aw/w,
+			yEn - y*ah/h,
 		);
 	}
 	

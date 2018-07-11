@@ -36,11 +36,20 @@ export default class Mink2DViewport
 		this.area.x.end= sub( this.area.x.end.valueOf(), x, );
 	}
 	
-	moveTarget( target, x, y, )
+	moveTarget( target, ox, oy, x, y, )
 	{
+		const tEn= this.area.t.end.valueOf();
+		const xSt= this.area.x.start.valueOf();
+		const aw= this.areaWidth.valueOf();
+		const w= this.width.valueOf();
+		const ah= this.areaHeight.valueOf();
+		const h= this.height.valueOf();
+		
 		target.move(
-			y*this.areaHeight/this.height,
-			mul( 'i', x*this.areaWidth/this.width, ),
+			tEn - oy*ah/h,
+			sum( xSt, mul( 'i', ox, aw/w, ), ),
+			tEn - y*ah/h,
+			sum( xSt, mul( 'i', x, aw/w, ), ),
 		);
 	}
 	
@@ -48,7 +57,7 @@ export default class Mink2DViewport
 	{
 		return new Model( {
 			x: $( ( x, xSt, w, aw, )=> (x.i - xSt.i)*w/aw, point.x, this.area.x.start, this.width, this.areaWidth, ),
-			y: $( ( y, yEn, w, aw, )=> (yEn - y)*w/aw, point.t, this.area.t.end, this.width, this.areaWidth, ),
+			y: $( ( t, tEn, w, aw, )=> (tEn - t)*w/aw, point.t, this.area.t.end, this.width, this.areaWidth, ),
 		}, );
 	}
 	
