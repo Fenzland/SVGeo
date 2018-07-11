@@ -127,7 +127,7 @@ export default class Complex extends Number
 	{
 		num= new Complex( num, );
 		
-		return new this( num.mod, num.arg, );
+		return new this( Math.log( num.mod, ), num.arg, );
 	}
 	
 	static cos( num, )
