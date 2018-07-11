@@ -88,6 +88,9 @@ const ciO_7i= O_Ci.cross( O_7i, { color:'hsla(-70,100%,50%,0.25)', }, );
 const T_1= l_1.perpendicular( p_O, );
 const L_1= l_1.parallelism( p_O, );
 
+const pO_i= O_1i.point( '0.5π-i', { color:'green', free:true, }, );
+const pO_1= O_1.point( 'i', { color:'green', free:true, }, );
+
 canvas.show(
 	l_1, l_2,
 	O_0, O_1, O_2, O_3, O_4, O_5, O_6, O_7, O_1i, O_2i, O_3i, O_4i, O_5i, O_6i, O_7i,
@@ -97,7 +100,7 @@ canvas.show(
 	c0O_0, c0O_1, c0O_2, c0O_3, c0O_4, c0O_5, c0O_6, c0O_7, c0O_1i, c0O_2i, c0O_3i, c0O_4i, c0O_5i, c0O_6i, c0O_7i,
 	ciO_0, ciO_1, ciO_2, ciO_3, ciO_4, ciO_5, ciO_6, ciO_7, ciO_1i, ciO_2i, ciO_3i, ciO_4i, ciO_5i, ciO_6i, ciO_7i,
 	p_O, p_A, p_B, p_C,
-	pl_1,
+	pl_1, pO_1, pO_i,
 );
 
 export default canvas;
