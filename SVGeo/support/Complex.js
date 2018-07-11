@@ -28,14 +28,14 @@ export default class Complex extends Number
 	
 	static fromString( s, )
 	{
-		const m= s.match(/^(-?(?:\d*\.)?\d+)??\+?(?:(-?(?:\d*\.)?\d*)i)?$/);
+		const m= s.match(/^(?:(-?(?:\d*\.)?\d+)??(π)?)??\+?(?:(-?(?:\d*\.)?\d*)(π)?i)?$/);
 		
 		if(!(m ))
 			throw new Error( `The format of complex number must be 'a±bi', 'a' or 'bi'. '${s}' is invalid.` );
 		
 		return new this(
-			+(m[1]||0),
-			+(m[2]===''?1: m[2]==='-'?-1: m[2]||0),
+			+(m[1]||(m[2]?1:0))*(m[2]?π:1),
+			+(m[3]===''?1: m[3]==='-'?-1: m[3]||0)*(m[4]?π:1),
 		);
 	}
 	
