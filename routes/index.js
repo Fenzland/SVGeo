@@ -9,5 +9,6 @@ router.basePath= resolveHere( '..', );
 router.route( 'home', '/', 'index', );
 router.route( 'equilateral-triangle', '/demos/equilateral-triangle', );
 router.route( 'angular-bisector', '/demos/angular-bisector', );
+router.route( 'tangent-line-of-circle', '/demos/tangent-line-of-circle', );
 
 export default router;

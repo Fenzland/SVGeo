@@ -64,6 +64,8 @@ export default new Page( {
 						', ',
 						a( 'Angular bisector', { href:router.linkTo( 'angular-bisector', ), }, ),
 						', ',
+						a( 'Tangent line of circle', { href:router.linkTo( 'tangent-line-of-circle', ), }, ),
+						', ',
 					),
 				),
 			),
