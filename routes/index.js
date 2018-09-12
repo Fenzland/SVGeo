@@ -1,10 +1,10 @@
 import Router from '../OvO/routing/Router.js';
-import { resolveHere, } from '../OvO/support/path.js';
+import { resolve, } from '../OvO/support/path.js';
 
 const router= new Router();
 
-router.pageDir= resolveHere( '../pages', );
-router.basePath= resolveHere( '..', );
+router.pageDir= resolve( '../pages', );
+router.basePath= resolve( '..', );
 
 router.route( 'home', '/', 'index', );
 router.route( 'equilateral-triangle', '/demos/equilateral-triangle', );
