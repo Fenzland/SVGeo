@@ -29,8 +29,6 @@ export default class View
 				viewBox:this.viewport.viewBox,
 				width:this.viewport.width,
 				height:this.viewport.height,
-				xmlns:'http://www.w3.org/2000/svg',
-				version:'1.1',
 			},
 			this.render( this.items, ),
 			movement( this.viewport, this.viewport, ),
