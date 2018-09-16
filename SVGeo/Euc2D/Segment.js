@@ -1,4 +1,4 @@
-import Model, { $, } from '../../OvO/model/Model.js';
+import Model, { $, } from 'https://oxo.fenzland.com/OmO/0.1/Model.js';
 import Path from '../genaral/Path.js';
 import Point from './Point.js';
 import PointOnLine from './PointOnLine.js';

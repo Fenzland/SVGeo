@@ -1,4 +1,4 @@
-import Listener from '../../OvO/view/Listener.js';
+import Listener from 'https://oxo.fenzland.com/OvO/0.1/Listener.js';
 
 export default function movement( target, viewport, )
 {

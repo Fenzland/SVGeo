@@ -1,4 +1,4 @@
-import HTML, { header, footer, section, article, main, div, h1, h2, h3, p, small, a, figure, figcaption, } from '../OvO/view/HTML.js';
+import HTML, { header, footer, section, article, main, div, h1, h2, h3, p, small, a, figure, figcaption, } from 'https://oxo.fenzland.com/OvO/0.1/HTML.js';
 import { inEuc2D, inMink2D, } from '../demos/angular-bisector.js';
 
 export function render()

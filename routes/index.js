@@ -1,11 +1,7 @@
-import Router from '../OvO/routing/Router.js';
+import Router from 'https://oxo.fenzland.com/OrO/master/Router.js';
 
-const router= new Router( '..', '../pages', );
+const router= new Router();
 
-router.route( 'home', '/', 'index', );
-router.route( 'equilateral-triangle', '/demos/equilateral-triangle', );
-router.route( 'angular-bisector', '/demos/angular-bisector', );
-router.route( 'tangent-line-of-circle', '/demos/tangent-line-of-circle', );
 router.route( {
 	home: { path: '/', page: 'index', },
 	equilateral_triangle: '/demos/equilateral-triangle',

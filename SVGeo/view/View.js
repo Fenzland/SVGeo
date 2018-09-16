@@ -1,6 +1,6 @@
-import Model, { $, } from '../../OvO/model/Model.js';
-import SVG from '../../OvO/view/SVG.js';
-import { IfNot, ForEach, } from '../../OvO/view/Ctrl.js';
+import Model, { $, } from 'https://oxo.fenzland.com/OmO/0.1/Model.js';
+import SVG from 'https://oxo.fenzland.com/OvO/0.1/SVG.js';
+import { IfNot, ForEach, } from 'https://oxo.fenzland.com/OvO/0.1/Ctrl.js';
 import movement from './movement.js';
 import Path from '../genaral/Path.js';
 import Point from '../genaral/Point.js';
